@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+
+<style>
+    body{
+        margin: 0px;
+    }
+
+
+
+    /* 문서의 아이디를 선택자로 사용할 경우 #을 붙인다. */
+#navi{
+    background-color: palegoldenrod;
+    padding-left: 50px; /*왼쪽 박스 경계로부터 px만큰 x축 방향 증가*/
+    /* 포지션을 사용할려면 의미없이 태그로 묶을 수 있는 span을 사용해서 묶어놔야한다. */
+}
+#content{
+    background-color: paleturquoise;
+    height: 500px;
+    text-align: center;
+}
+
+</style>
+
+</head>
+<body>
+
+    
+    <!-- div란 분할의 의미로, 하나의 문서내의 구역을 설정할때 사용됨 -->
+    <div id="navi">
+        사이트 네비게이션(메뉴 나올 곳)
+    </div>
+
+    <div id="content">
+        사이트 내용
+    </div>
+
+
+
+</body>
+</html>

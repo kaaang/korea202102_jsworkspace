@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>복합구조의 레이아웃</title>
+
+
+<style>
+
+
+#navi{
+    background-color: yellow;
+    height: 100px;
+    width: 700px;
+}
+#side{
+    background-color: green;
+    height: 550px;
+    width: 100px;
+    float: left;
+    /* 물체를 공중으로 부양시킨다 , 부양 방향은 좌측으로 */
+}
+#content{
+    height: 550px;
+    width: 600px;
+    background-color: blue;
+    float: left;
+}
+#wrapper{
+    /* margin-left: 300px; */
+    /* 좌측와 우측에 남는 여백 공간을 2분하여, 동일하게 좌우 마진을 적용하는방법 */
+    width: 700px;
+    height: 650;
+    margin: auto;
+    
+}
+
+</style>
+
+
+</head>
+<body>
+
+    <div id="wrapper">
+        <div id = "navi">
+            노란색 박스
+        </div>
+
+        <div id="side">
+            사이드
+        </div>
+
+        <div id="content">
+            컨텐츠영역
+        </div>
+    </div>
+
+
+
+</body>
+</html>
