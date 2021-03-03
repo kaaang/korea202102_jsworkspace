@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    #wrapper{
+        margin: auto;
+        width: 600px;
+        height: 600px;
+    }
+    #pic{
+        width: 100%;
+        height: 550px;
+
+    }
+    #control{
+        width: 100%;
+        height: 50px;
+        position: relative;
+    }
+    #pic img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    #control img{
+        width: 40px;
+    }
+    .bt-right{
+        position: absolute;
+        right: 0px;
+    }
+</style>
+
+
+<script>
+    var n=1;
+    function next(){
+        //문서내의 bt2라 불리는 src의 값을 변경하자
+        n=(n%10)+1
+        document.querySelector("#pic img").src="../images/travel2/"+n+".jpg";
+    }
+    function prev(){
+        n=n-1
+        document.querySelector("#pic img").src="../images/travel2/"+n+".jpg";
+    }
+</script>
+
+</head>
+<body>
+    <div id="wrapper">
+        <div id="pic">
+            <img src="../images/travel2/1.jpg">
+        </div>
+        <div id="control">
+            <img id="bt1" src="../images/left_btn.png" onclick="prev()">
+            <img id="bt2" class="bt-right" src="../images/right_btn.png" onclick="next()">
+        </div>
+    </div>
+</body>
+</html>
