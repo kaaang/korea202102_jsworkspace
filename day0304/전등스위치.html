@@ -40,7 +40,6 @@
 <script>
     var op=0.8;
     var flag=true;
-    var onOff = "off";
 
 
     //스위치를 켜고 끄는 함수
@@ -50,12 +49,11 @@
         op = (flag)? 0:0.8;
         // op = (op==0.8)? 0:0.8; 
         document.querySelector("#surface").style.opacity = op;
-        flag = !flag;
 
         //스위치 이미지 제어
-        onOff = (flag)? "off":"on";
-        console.log(onOff);
+        onOff = (flag)? "on":"off";
         document.querySelector("img").src = "../images/switch_"+onOff+".png";
+        flag = !flag;
 
     }
 </script>

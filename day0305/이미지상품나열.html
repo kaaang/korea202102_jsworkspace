@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .wrapper{
+            margin: auto;
+            width: 900px;
+            height: 600px;
+            background-color: blanchedalmond;
+            overflow: hidden;/*부모 영역을 벗어나는 컨텐츠는 과감히 가리기*/
+        }
+
+        .left-side{
+            width: 150px;
+            height: 100%;
+            background-color: gray;
+            float: left;
+        }
+
+        #content{
+            width: 750px;
+            height: 100%;
+            background-color:indianred;
+            float: left;
+            overflow: scroll;/*넘치는 애들을 스크로로 표현*/
+        }
+        img{
+            width: 100px;
+        }
+
+    </style>0
+
+
+    <script>
+        var count=0; //몇번째 클릭인지를 알기 위한 카운터 변수
+        function showProduct(){
+            count++;
+            //함수를 호출시, 문서내의 content요소 안에 img태그를 동적(runtime)으로 생성하여
+            //자식 요소로 두기
+
+            //버튼을 누를때 문서내의 content에 자식을 생성한다
+            // document.querySelector("#content").appendChild();
+            
+            
+            //기존에 없던, 태그를 프로그래밍 적으로 생성한다.
+            var img=document.createElement("img"); //태그 생성
+            img.src="../images/ball.webp";//img에 경로 추가
+            document.querySelector("#content").appendChild(img);//메모리에 있던 img를 콘텐트에 생성
+
+            
+            //줄바꿈을 위한 태그 <br>생성
+            var br=document.createElement("br");
+            
+            //문서내의 txt라는 요소의 값을 구하자!
+            //단,코드가 길면 변수로 받자
+            var n=document.querySelector("#txt").value;
+
+            //카운터 값이 3인 경우에만 appendchild()를 부착하자.
+            ((count%n) ==0)? document.querySelector("#content").appendChild(br): 0;
+        }
+
+
+    </script>
+
+
+
+
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <div class="left-side">
+            <input id="txt" type="text" value="" placeholder="Line limite"><br>
+            <button onclick="showProduct()">Display</button>
+        </div>
+        <div id="content"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+
+
+    <script>
+        var status;
+        var flag=true;
+        function openClose(){
+
+
+            //문서내의 folder라는 요소의 src를 변경하되, 변경할 이미지가 단 2가지 경우 밖에 없음으로
+            // 어떠한 이미기자 나올지는 삼항연사자에게 맡겨보자
+
+            status = (flag)? "on":"off" ;
+            document.querySelector("#folder").src="../images/folder_"+status+".png";
+            flag=!flag;
+        }
+    </script>
+
+
+
+
+</head>
+<body>
+    
+
+
+
+
+    <img id="folder" src="../images/folder_off.png" onclick="openClose()">
+
+
+
+
+</body>
+</html>

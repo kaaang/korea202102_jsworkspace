@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+<style>
+    #hero{
+        position: absolute;
+        left: 0px;
+        top: 200px;
+    }    
+</style>
+
+
+<script>
+    var x=0;
+    var max=100;
+    var min=0;
+    var check = true;
+
+    function move(){
+        ((check==true)&&(x<max))? x+=10:check=false ;
+        ((check==false)&&(x>min))? x-=10:check=true ;
+        ((check==false)&&(x==min))? check=true:0; //0에서 클릭한번 씹히는거 없앨려고,,없어도됨
+        document.querySelector("h1").innerText="x값 : "+x;
+        document.querySelector("#hero").style.left=x+"px";
+    }
+
+
+</script>
+
+
+</head>
+<body>
+    <button onclick="move()">move</button>
+    <h1>x값 : 0</h1>
+    <img src="../images/hero.png" width="100px" id="hero">
+</body>
+</html>
