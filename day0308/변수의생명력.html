@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        /*
+        변수의 생명력(유지되는 시간)
+        전역변수 : 프로그램이 종료 될때까지 메모리상 존재
+        지역변수 : {} 지역화 영역이 종료될때까지 메모리상에 존재
+        */
+
+        var k=5;//브라우저를 닫을때까지 메모리에 상주
+        function test1(){
+            // var k=5;  //괄호가 닫히면 죽기때문에 2에서 사용할 수 없음
+        }
+        function test2(){
+            var x="사과";
+            alert(k);
+        }
+        test1();
+        test2();
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+    #hero{
+        position: absolute;
+        left: 0px;
+        top: 150px;
+    }
+</style>
+
+
+<script>
+    var x=0; //공의 좌표
+    var step = 0; // 증가할지, 감소할지를 결정할 변수
+    var flag = true;
+    var st;
+
+    function move(){
+        //문서내의 hreo의 요소의 style중 left값을 증가시키다가 500에 도달하면 감소시키고 0에서 다시 증가
+
+        step = (flag)? 10:-10 ;
+
+        x += step;
+        
+        
+        document.getElementById("hero").style.left=x+"px";
+        document.querySelector("h1").innerText = x;
+
+        //개발자는  flag만 만지면, 공의 방향이 바뀐다.
+        flag = (x>=500 || x<=0) ? !flag : flag ;
+    }
+
+    function auto(){
+        //사용자 대신, 컴퓨터가 수동함수를 호출해주면 자동
+        //따라서 언제나 수동 로직을 먼저 작성해 두자.
+        st=setInterval("move()",10)
+    }
+
+    function stop(){
+        //setInteval을 멈추는 함수 ->현재 진행중인 인터버를 작성 ->set에 변수를 줘서 가르킴
+        clearInterval(st);
+    }
+
+</script>
+
+
+</head>
+<body>
+    
+    <button onclick="move()">move</button>
+    <button onclick="auto()">auto</button>
+    <button onclick="stop()">stop</button>
+    <h1>0</h1>
+    <img src="../images/hero.png" width="150" id="hero">
+
+
+
+</body>
+</html>

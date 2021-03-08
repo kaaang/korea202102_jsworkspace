@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+    #wrapper{
+        margin: auto;
+        width: 1000px;
+        height: 650px;
+        background: url(../images/bg.jpeg);
+        background-size: 1200px 650px;
+        background-repeat: repeat-x;
+        position: relative;
+        overflow: hidden;
+    }
+</style>
+
+
+
+<script>
+    var img; //다른 함수에서도 접근이 가능하게 하려면 전역 변수로 선언해야한다.
+                //전역 변수로 선언하면, 프로그램이 종료 될때까지 그 값을 사용할 수 있다.
+    var x=0; //프로그램 끝날때까지 누적해야하기 때문에 전역변수로 선언
+    var y=200;
+    var container;
+    var bgX =0;
+
+
+
+    function init(){
+        //우주선을 디자인적으로 생성하지 말고, 프로그래밍 적으로 생성해보자
+        img=document.createElement("img"); //기존에 없었던 요소를 생성할때.
+        img.src="../images/hero.png";
+        img.id="hero";
+        img.style.width=100+"px";
+        img.style.height=60+"px";
+
+        //포지션 지정 -> 원래는 스타일 시트에서 그냥 하면 됨
+        img.style.position="absolute";
+        img.style.left=0+"px";
+        img.style.top=y+"px";
+
+        container = document.getElementById("wrapper"); //이미 존재하는거를 가져올때
+        //wrapper에 이미지를 자식 요소로 부착
+        container.appendChild(img);
+        
+
+        //무한으로 moveBg()호출
+        setInterval("moveBg()",10);
+    }
+    function joystick(){
+        // alert("hello");
+
+
+        //키보드의 각 영문철자 하나하나 마다 ,1:1대응하는 아스키 코드로 변환되어 컴퓨터에게
+        //전달되어지는데, 이렇게 컴퓨터는 1과 0만을 이해하기 때문에, 각 키보드의 영문철자를
+        //이진수로 변환하기 위함
+        //개발자가 이 아스키 코드를 모두 암기해야하는가? 댓츠 노노
+        //해결책) 모든 프로그래밍 언어는 아스키 코드를 반환하는 기능이 있다.
+        
+        
+        console.log("press",event.keyCode);
+
+
+
+        //우주선을 x축 방향으로 증가 (우측 이동 효과)
+        if(event.keyCode==39){
+            x += 10;
+            img.style.left = x +"px";
+        }
+        //우주선을 x축 방향으로 감소 (좌측 이동 효과)
+        if(event.keyCode==37){
+            x -= 10;
+            img.style.left = x +"px";
+        }
+        //우주선을 y축 방향으로 증가 (아래 이동 효과)
+        if(event.keyCode==40){
+            y += 10;
+            img.style.top = y +"px";
+        }
+        //우주선을 y축 방향으로 감소 (위로 이동 효과)
+        if(event.keyCode==38){
+            y -= 10;
+            img.style.top = y +"px";
+        }
+    }
+
+
+
+    //컨테이너의 배경 이미지 좌표 변경
+    function moveBg(){
+        //배경의 x좌표값은 프로그램이 끝날때까지 계속 음수방향으로 누적되어야 하므로 전역으로 선언.
+        bgX--;
+       container.style.backgroundPosition= bgX+"px 0px";//x축 y축
+
+    //    setTimeout("moveBg()",10); //지정한 함수를 지정한 시간 뒤에 호출
+    // 재귀함수여서 계속 인터럽트가 걸리기 때문에 인터벌로 변경 이닛 함수로>>
+    }
+</script>
+
+<!-- setInterval() : 무한호출
+        setTimeout() : 1회호출 /위 예제는 재귀호출이여서 무한처럼 보이는것뿐임 -->
+
+
+
+</head>
+<!-- 방법2) 문서의 내용이 다 읽혀졌는데 호출되는 온로드 이벤트 핸들러를 이용하는 방법 -->
+<body onload="init();moveBg()" onkeydown="joystick()">
+    <div id="wrapper"></div>
+</body>
+</html>
+
+<script>
+    //방법1) 스크립트 자체를 문서 제일 아래에 두는방법
+    // init();
+</script>
