@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <style>
+        .wrapper{
+            width: 600px;
+            margin: auto;
+        }
+    </style>
+
+    <script>
+        //onLoad를 바디에 쓸 수도 있으나 수치스럽다.
+        window.addEventListener("load",function(){
+            //이 시점은 body태그까지 모두 읽혀진 시점이므로, 마음대로 각 요소들에 접근 가능
+            var bt=document.querySelector("button");
+            bt.style.background = "blue"; //bt를 읽어오는지 확인
+
+            //버튼을 클릭하면...
+            bt.addEventListener("click",function(){
+                // alert("test");
+                send();
+            });
+        });
+
+
+        //웹 서버에 가입 양식의 내용을 네트워크를 통해 전송한다.
+        // 이때 전송 대상이 되는 컴포넌트(input, select)들을 전송 양식으로 묶어야 하는데,
+        // 이때 사용되는 태그가 바로 form 태그다
+        function send(){
+            //전송 전에 유효성을 체크해야한다 (id등을 넣었는지 여부)
+            var user_id=document.getElementById("user-id");
+            var pass=document.getElementById("pass").value;
+            var pass2=document.getElementById("pass2");
+            var agree=document.getElementsByName("agree")[0];
+
+            
+            console.log("당신이 입력한 아이디는?",user_id.value);
+            if(user_id.value == ""){
+                alert("아이디를 입력하세요");
+                //커서를 올려놔주기
+                user_id.focus();
+            }else if(pass== ""){
+                alert("비밀번호를 입력하세요");
+            }else if(pass!=pass2.value){
+                alert("비밀번호가 다릅니다.")
+            }else if(!agree.checked){
+                alert("동의에 체크해주세요");
+            }
+            else{
+                var form1 = document.getElementById("from1");
+                //입력 양식인 form 태그에는 전송대상 서버에 어떤 방식으로 전송할지 등을 지정할 수 있다.
+                form1.action="http://daum.net"; //전송 대상 url
+                form1.submit(); //전송이 동작(네트워크를 통해 입력 데이터들이 날아감)
+            }
+
+
+
+
+        }
+        
+    </script>
+
+
+</head>
+<body>
+    
+    <div class="wrapper">
+        <form id="from1">
+            <table width="100%" border="1px">
+                <tr>
+                    <td><input type="text" placeholder="Your ID..." id="user-id"></td>
+                </tr>
+
+                <tr>
+                    <td><input type="password" placeholder="Your Password..." id="pass"></td>
+                </tr>
+
+                <tr>
+                    <td><input type="password" placeholder="Password Check..." id="pass2"></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <select name="" id="">
+                            <option value="">010</option>
+                            <option value="">011</option>
+                            <option value="">017</option>
+                            <option value="">019</option>
+                        </select>-
+                        <input type="text" placeholder="앞자리">-
+                        <input type="text" placeholder="뒷자리">
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="radio" name="agree" value="yes">동의
+                        <input type="radio" name="agree" checked value="no">동의안함
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <button type="button">가입</button>
+                    </td>
+                </tr>
+
+
+            </table>
+        </form>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+    #wrapper{
+        background-color: green;
+        width: 600px;
+        height: 400px;
+        margin: auto;
+    }
+</style>
+
+
+<script>
+    var cnt = 1;
+
+    window.addEventListener("load",function(){
+        var bt = document.createElement("button");
+        bt.addEventListener("click",function(){
+            start();
+        });
+    });
+
+
+    function start(){
+        var img = document.createElement("img");
+        img.src = "../images/card/"+cnt+".PNG";
+        document.querySelector("#wapper").appendChild(img);
+        cnt++;
+
+
+    }
+</script>
+
+
+
+</head>
+<body>
+    <button>click!</button>
+    <div id="wrapper">
+        
+    </div>
+</body>
+</html>
