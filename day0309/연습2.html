@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+<style>
+    #wrapper{
+        width: 1000px;
+        height: 500px;
+        overflow: hidden;
+
+    }
+    #content{
+        width: 900px;
+        height: 500px;
+        background-color: burlywood;
+        float: left;
+        position: relative;
+    }
+    #menu{
+        width: 100px;
+        height: 500px;
+        background-color: coral;
+        float: left;
+    }
+    #menu img{
+        width: 90px;
+        height: 90px;
+    }
+    
+</style>
+
+
+
+
+<script>
+    var cnt =5;
+    var flag = true;
+    function stemp(){
+        line();
+        var img=document.createElement("img");
+        img.src="../images/card/"+cnt+".PNG";
+        img.style.width=90+"px";
+
+        
+        var x=event.clientX;
+        var y=event.clientY;
+        img.style.position="absolute";
+        img.style.left=x+"px";
+        img.style.top=y+"px";
+    
+        var content=document.querySelector("#content");
+        content.appendChild(img);
+
+    }
+    function line(){
+        document.querySelector("#one").style.border="0px";
+        document.querySelector("#two").style.border="0px";
+        document.querySelector("#three").style.border="0px";
+        document.querySelector("#four").style.border="0px";
+        document.querySelector("#five").style.border="0px";
+
+        
+
+        // document.querySelector("img").style.border="0px";
+        // document.getElementsByClassName()
+        
+        // switch(cnt){
+        //     case 1: {
+        //         document.getElementById("one").style.border="5px solid red";
+        //         break;
+        //     } 
+        //     case 2:{
+        //         document.getElementById("two").style.border="5px solid red";
+        //         break;
+        //     }
+        //     case 3:{
+        //         document.getElementById("three").style.border="5px solid red";
+        //         break;
+        //     }
+        //     case 4:{
+        //         document.getElementById("four").style.border="5px solid red";
+        //         break;
+        //     }
+        //     case 5:{
+        //         document.getElementById("five").style.border="5px solid red";
+        //         break;
+        //     }
+        // }
+        // var test=document.querySelector("#menu img");
+        
+        if(cnt==1){
+            document.getElementById("one").style.border="5px solid red";
+        }else if(cnt==2){
+            document.getElementById("two").style.border="5px solid red";
+        }else if(cnt==3){
+            document.getElementById("three").style.border="5px solid red";
+        }else if(cnt==4){
+            document.getElementById("four").style.border="5px solid red";
+        }else if(cnt==5){
+            document.getElementById("five").style.border="5px solid red";
+        }
+
+    }
+</script>
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    <div id="wrapper">
+        <div id="content" onmouseup="stemp()"></div>
+        <div id="menu">
+            <img id="one" src="../images/card/1.PNG" onclick="cnt=1">     
+            <img id="two" src="../images/card/2.PNG" onclick="cnt=2">     
+            <img id="three" src="../images/card/3.PNG" onclick="cnt=3">     
+            <img id="four" src="../images/card/4.PNG" onclick="cnt=4">     
+            <img id="five" src="../images/card/5.PNG" onclick="cnt=5">     
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+
+<script>
+    window.addEventListener("load",function(){
+        one();
+        two();
+        three();
+        four();
+        five();
+    });
+
+
+
+
+    function one(){
+        var result = prompt("원하는 수를 입력받아 그 수부터 0사이의 정수들을 출력");
+        for(result;result>0;result--){
+            document.write(result+" ");
+        }
+
+        document.write("<br>");
+        document.write("<br>");
+        document.write("<br>");
+        document.write("<br>");
+    } 
+
+
+    function two(){
+        var result = prompt("원하는 년도를 입력 받은 후 그해에 윤달이 있는지 없는지 판단.");
+        if(result%4 == 0){
+            document.write("윤달입니다.");
+        }else{
+            document.write("윤달이 아닙니다.");
+        }
+
+        document.write("<br>");
+        document.write("<br>");
+        document.write("<br>");
+        document.write("<br>");
+    } 
+
+
+    function three(){
+        var result = prompt("원하는 단수를 입력받아 구구단을 출력");
+        
+        for(i=1;i<=9;i++){
+            document.write(result +"*"+i+"="+i*result);
+            document.write("<br>");
+        }
+
+        document.write("<br>");
+        document.write("<br>");
+        document.write("<br>");
+        document.write("<br>");
+    } 
+
+
+
+    function four(){
+        var result = prompt("원하는 수를 입력받고 그 수를 기준으로 1작은수와 1큰수 모두 출력하세요");
+        // result = Number(result);
+        for(var i=1;i>=-1;i--){
+            document.write(result-i + " ");
+        }
+
+        document.write("<br>");
+        document.write("<br>");
+        document.write("<br>");
+        document.write("<br>");
+    } 
+
+
+
+    function five(){
+        var a = prompt("출력할 문자");
+        var b = prompt("츌력할 횟수");
+        
+        for(var i=1;i<=b;i++){
+            document.write(a);
+        }
+        
+
+        document.write("<br>");
+        document.write("<br>");
+        document.write("<br>");
+        document.write("<br>");
+    } 
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+</head>
+<body>
+    
+</body>
+</html>

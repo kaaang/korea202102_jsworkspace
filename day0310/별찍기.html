@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+<script>
+    window.addEventListener("load",function(){
+        start();
+    });
+
+    function start(){
+        // var result = prompt("홀수 입력");
+        var result = 7;
+
+
+        for(var i=0;i<result;i++){
+            for(var j=0;j<result;j++){
+                if(i<=(result/2)){
+                    if((i+j)<=(result/2)-1){
+                        document.write("○");
+                    }else if((j-i)>(result/2)){
+                        document.write("○");
+                    }else{
+                        document.write("★");
+                    }
+                    
+                }else if(i>(result/2)){
+                    if((i-j)>=(result/2)){
+                        document.write("○");
+                    }else if((i+j)>(result/2)*3-1){
+                        document.write("○");
+                    }else{
+                        document.write("★");
+                    }
+                }
+            }
+            document.write("<br>");
+        }
+        
+        
+        
+        
+        
+
+        // for(var i=0;i<result;i++){
+        //     for(var j=0;j<result;j++){
+        //         if(i<=(result/2)){
+        //             if((i+j)<=(result/2)-1){
+        //                 document.write("○");
+        //             }else if((j-i)>=(result/2)+1){
+        //                 document.write("○");
+        //             }else{
+        //                 document.write("★");
+        //             }
+        //         }
+        //     }
+        //     document.write("<br>");
+        // }
+    }
+</script>
+
+
+
+</head>
+<body>
+    
+</body>
+</html>
