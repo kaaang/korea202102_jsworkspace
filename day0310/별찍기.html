@@ -13,8 +13,8 @@
     });
 
     function start(){
-        // var result = prompt("홀수 입력");
-        var result = 7;
+        var result = prompt("홀수 입력");
+        // var result = 7;
 
 
         for(var i=0;i<result;i++){
@@ -27,11 +27,12 @@
                     }else{
                         document.write("★");
                     }
-                    
+                     
                 }else if(i>(result/2)){
-                    if((i-j)>=(result/2)){
+                    if((i-j)>(result/2)){
                         document.write("○");
                     }else if((i+j)>(result/2)*3-1){
+                        console.log((result/2)*3-1);
                         document.write("○");
                     }else{
                         document.write("★");

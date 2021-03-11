@@ -1,0 +1,30 @@
+<script>
+    var n=parseInt(prompt("값줘 홀수만"));
+    var wS=n/2;
+    var bS=1;
+    var eStar=wS;
+    var fStar=bS;
+    if(n%2!=0){
+        for(var i=n/2+1;i>=1;i--){
+            fStar=bS;
+            eStar=wS
+            for(var i2=n;i2>=1;i2--){
+                if(eStar>=1){
+                    document.write("☆");
+                    eStar--;
+                }else{
+                    document.write("★");
+                    fStar--
+                    if(fStar==0){
+                        eStar=wS;
+                        bS+=2;
+                    }
+                }
+                if(i2==1){
+                    document.write("<br>");
+                    wS--;
+                }
+            }
+        }
+    }
+</script>
