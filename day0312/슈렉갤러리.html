@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+    .wrapper{
+        width: 500px;
+        height: 400px;
+        background-color: yellow;
+        margin: auto;
+        
+    }
+    #photo-frame{
+        width: 500px;
+        height: 340px;
+        background-color: teal;
+        overflow: hidden;
+        position: relative;
+    }
+    #navi{
+        text-align: center;
+        font-size: 30px;
+    }
+    #navi a{
+        /* 링크 밑줄 없애기 */
+        text-decoration: none;
+    }
+    #navi a:hover{
+        /* a태그에 마우스가 올려진 상태 :가상태그 */
+       color:darkgreen;
+    }
+    #navi a:active{
+        color: blueviolet;   
+    }
+    #container{
+        width: 3500px;
+        height: 340px;
+    }
+    #container img{
+        float: left;
+    }
+</style>
+
+
+<script>
+    var targetX=0; //컨테이너의 x좌표를 담을 변수
+    var container;
+    var a=0.1; //비율계수 ( 이 숫자가 커질수록 걸음이 커진다. 0.1~1사이로 조절하기)
+    
+
+
+    function setTarget(x){
+        targetX=x;
+    }
+    function init(){
+        container=document.getElementById("container");
+        container.style.position="absolute";//부모는 photo-frame이고 부모를 기준으로한 위치속성
+
+        container.style.top=0+"px";
+        container.style.left=0+"px";
+        // move(0);
+        setInterval("move()",10);
+    }
+
+    //container 이동시키기
+    function move(){
+        // targetX=x;
+        // container.style.left=targetX+"px";
+        //나의 위치는 = 현재 나의 위치에서 + 비율*(목표지점-현재 나의 위치)
+        // container.style.left = parseInt(container.style.left)+a*(targetX-parseInt(container.style.left))+"px";
+        container.style.left = parseFloat(container.style.left)+a*(targetX-parseFloat(container.style.left))+"px";
+        // setTimeout();
+    }
+
+
+
+    window.addEventListener("load",function(){
+        init();
+    });
+
+</script>
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <div id="photo-frame">
+            <!-- 길다란 사진을 모아놓은 컨데이너 -->
+            <div id="container">
+                <img src="../images/shurek/img0.jpg">
+                <img src="../images/shurek/img1.jpg">
+                <img src="../images/shurek/img2.jpg">
+                <img src="../images/shurek/img3.jpg">
+                <img src="../images/shurek/img4.jpg">
+                <img src="../images/shurek/img5.jpg">
+                <img src="../images/shurek/img6.jpg">
+            </div>
+        </div>
+        <div id="navi" >
+            <!-- 
+            html문서에 자바스크립트를 작성할 수 있는 영역은?
+            1)script태그 안에
+            2)이벤트 핸들러 안
+            3)a href안에도 가능 단, javascript를 명시했을때 가능
+             -->
+            <a href="javascript:setTarget(0)">●</a>
+            <a href="javascript:setTarget(-500)">●</a>
+            <a href="javascript:setTarget(-1000)">●</a>
+            <a href="javascript:setTarget(-1500)">●</a>
+            <a href="javascript:setTarget(-2000)">●</a>
+            <a href="javascript:setTarget(-2500)">●</a>
+            <a href="javascript:setTarget(-3000)">●</a>
+        </div>
+    </div>
+</body>
+</html>

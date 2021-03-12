@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #wrapper{
+        width: 1100px;
+        margin: auto;
+        border: solid red;
+        padding: 100px;
+        box-sizing: border-box;
+    }
+    #wrapper input{
+        font-size: 120px;
+        width: 150px;
+        text-align: right;
+    }
+    #wrapper span{
+        font-size:100px;
+    }
+    #wrapper button{
+        color: red;
+        border:red solid;
+        padding: 15px 25px;
+        background-color: white;
+        font-size: 16px;
+        border-radius: 20%;
+        position: relative;
+        left: 40%;
+        transition-duration: 0.4s;
+    }
+    #wrapper button:hover{
+        background-color: red;
+        color: white;
+    }
+</style>
+<script>
+    var t_hour;
+    var t_min;
+    var t_sec;
+    var hour=0;
+    var min=0;
+    var sec=0;
+    var auto;
+
+    function getZeroString(n){
+        if(n<10){
+            var result;
+            result="0"+n;
+        }else{
+            result=n;
+        }
+        return result;
+    }
+
+    function init(){
+        t_hour = document.getElementById("t_hour");
+        t_min = document.getElementById("t_min");
+        t_sec = document.getElementById("t_sec");
+
+        t_hour.value="00";
+        t_min.value="00";
+        t_sec.value="00";
+        
+    }
+    function countUp(){
+        sec++;
+        if(sec==60){
+            sec=0;
+            min++;
+            if(min>=60){
+                hour++;
+                min=0;
+            }
+        }
+        t_sec.value=getZeroString(sec);
+        t_min.value=getZeroString(min);
+        t_hour.value=getZeroString(hour);
+    }
+    //function start(){
+    //    auto = setInterval("countUp()",1);
+    //}
+    // function stop(){
+    //     clearInterval(auto);
+    // }
+    window.addEventListener("load", function(){
+        init();
+    });
+</script>
+<body>
+    <div id="wrapper">
+        <input type="text" id="t_hour"><span> 시 </span>
+        <input type="text" id="t_min"><span> 분 </span>
+        <input type="text" id="t_sec"><span> 초 </span>
+        <p>
+        <button onclick="countUp()" onmousedown=""> start </button>
+        <button onclick="stop()"> stop </button>
+        </div>
+</body>
+</html>

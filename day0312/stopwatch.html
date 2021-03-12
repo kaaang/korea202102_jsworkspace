@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+    #wrapper{
+        margin: auto;
+        width: 600px;
+        height: 300px;
+        background-color: grey;
+        position: relative;
+        top: 75px;
+    }
+    #wrapper input{
+        font-size: 120px;
+        width: 150px;
+        text-align: right;
+    }
+    #box{
+        width: 550px;
+        /* margin: auto; */
+        position: absolute;
+        top: 50px;
+        left: 20px;
+    }
+    #box span{
+        font-size: 20px;
+    }
+    #btn{
+        width: 400px;
+        margin: auto;
+        position: absolute;
+        top: 180px;
+        left: 100px;
+    }
+    #btn button{
+        /* width: 30px; */
+        font-size: 30px;
+    }
+    #clock{
+        position: absolute;
+        top: 300px;
+    }
+
+</style>
+
+
+<script>
+    var t_hour;
+    var t_min;
+    var t_sec;
+
+    var hour=0;
+    var sec=0;
+    var min=0;
+
+    var set_start;
+    var set_move;
+    var ck;
+    var i=0;
+
+    function getZeroString(n){
+        var result;
+        if(n<10){
+            result = "0"+n;
+        }else{
+            result = parseInt(n);
+        }
+        return result;
+    }
+
+    function init(){
+    
+        t_hour=document.getElementById("t_hour");
+        t_min=document.getElementById("t_min");
+        t_sec=document.getElementById("t_sec");
+
+        t_hour.value="0"+0;
+        t_min.value="0"+0;
+        t_sec.value="0"+0;
+
+    }
+    
+    function countUp(){
+        
+        sec++;
+        t_sec.value=getZeroString(sec);
+        
+        move();
+        if(sec==60){
+            min++;
+            if(min==60)
+            {
+                hour++;
+                min=0;
+            }
+            sec=0;
+            
+            t_hour.value=getZeroString(hour);
+            t_min.value=getZeroString(min);
+            t_sec.value=getZeroString(sec);
+        }
+        
+        
+    }
+    function move(){
+        i=sec*6;
+        ck=document.getElementById("ck");
+        ck.style.transform="rotate("+i+"deg)";
+        if(i==360){
+            i=0;
+        }
+    }
+
+
+
+
+    function start(){
+        set_start = setInterval("countUp()",1000);
+        // set_move= setInterval("move()",1000);
+    }
+
+    function pause(){
+        clearInterval(set_start);
+        // clearInterval(set_move);
+    }
+    
+    function set_clear(){
+        pause();
+        
+        hour=0;
+        min=0;
+        sec=0;
+        t_hour.value=getZeroString(hour);
+        t_min.value=getZeroString(min);
+        t_sec.value=getZeroString(sec);
+        i=0;
+        move();
+    }
+
+
+
+    window.addEventListener("load",function(){
+        init();
+    })
+</script>
+
+
+
+</head>
+<body>
+    <div id="wrapper">
+        <div id="box">
+            <input type="text" id="t_hour"><span>시</span>
+            <input type="text" id="t_min"><span>분</span>
+            <input type="text" id="t_sec"><span>초</span>
+            <div id="btn">
+                <button onclick="countUp()">click</button>
+                <button onclick="start()">auto</button>
+                <button onclick="pause()">pause</button>
+                <button onclick="set_clear()">clear</button>
+            </div>
+        </div>
+        <div id="clock">
+            <img src="../images/clock.png" id="ck">
+        </div>
+    </div>
+</body>
+</html>

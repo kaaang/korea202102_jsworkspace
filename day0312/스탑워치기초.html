@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+    #wrapper{
+        margin: auto;
+        width: 600px;
+    }
+    #wrapper input{
+        font-size: 120px;
+        width: 150px;
+        text-align: right;
+    }
+</style>
+
+
+<script>
+    var t_min;
+    var t_sec;
+
+    var sec=0;
+    var min=0;
+
+
+
+
+    function getZeroString(n){
+        var result;
+        if(n<10){
+            result = "0"+n;
+        }else{
+            result = parseInt(n);
+        }
+
+        return result;
+
+    }
+
+
+    function init(){
+        t_min=document.getElementById("t_min");
+        t_sec=document.getElementById("t_sec");
+
+        t_min.value=0;
+        t_sec.value=0;
+        
+    }
+
+    function countUp(){
+        
+        sec++;
+        t_sec.value=getZeroString(sec);
+        
+        
+        if(sec==60){
+            min++
+            sec=0;
+            t_sec.value=sec;
+            t_min.value=min;
+        }
+
+    }
+
+    window.addEventListener("load",function(){
+        init();
+    })
+</script>
+
+
+
+</head>
+<body>
+    <div id="wrapper">
+        <input type="text" id="t_min">분
+        <input type="text" id="t_sec">초
+        <P>
+            <button onclick="countUp()">수동</button>
+        </P>
+    </div>
+</body>
+</html>
