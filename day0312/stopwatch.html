@@ -74,7 +74,6 @@
     }
 
     function init(){
-    
         t_hour=document.getElementById("t_hour");
         t_min=document.getElementById("t_min");
         t_sec=document.getElementById("t_sec");
@@ -82,14 +81,11 @@
         t_hour.value="0"+0;
         t_min.value="0"+0;
         t_sec.value="0"+0;
-
     }
     
     function countUp(){
-        
         sec++;
         t_sec.value=getZeroString(sec);
-        
         move();
         if(sec==60){
             min++;
@@ -99,13 +95,10 @@
                 min=0;
             }
             sec=0;
-            
-            t_hour.value=getZeroString(hour);
-            t_min.value=getZeroString(min);
-            t_sec.value=getZeroString(sec);
         }
-        
-        
+        t_hour.value=getZeroString(hour);
+        t_min.value=getZeroString(min);
+        t_sec.value=getZeroString(sec);
     }
     function move(){
         i=sec*6;
@@ -115,10 +108,6 @@
             i=0;
         }
     }
-
-
-
-
     function start(){
         set_start = setInterval("countUp()",1000);
         // set_move= setInterval("move()",1000);
@@ -141,9 +130,6 @@
         i=0;
         move();
     }
-
-
-
     window.addEventListener("load",function(){
         init();
     })

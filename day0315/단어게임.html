@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+<style>
+    .wrapper{
+        width: 500px;
+        height: 700px;
+        background-color: cornflowerblue;
+        margin: auto;
+    }
+    #word_area{
+        width: 100%;
+        height: 200px;
+        background-color: darkcyan;
+        font-size: 100px;
+        text-align: center;
+    }
+    #input_area{
+        height: 150px;
+        background-color: darkkhaki;
+    }
+    #input_area input{
+        width: 98.5%;
+        height: 100%;
+        background-color: darkmagenta;
+        color: white;
+        font-weight: bold;
+        font-size: 85px;
+        text-align: center;
+    }
+    #feedback{
+        width: 100%;
+        height: 200px;
+        font-size: 150px;
+        color:red;
+        font-weight: bold;
+        text-align: center;
+        background-color: rosybrown;
+    }
+    #score_area{
+        height: 150px;
+        font-size: 120px;
+        font-weight: bold;
+        color: black;
+        text-align: center;
+    }
+</style>
+
+
+
+
+<script>
+    var word=["사과","바나나","파인애플","옥수수","참마","닭껍질","대파","은행","꽈리","삼겹살"];
+
+    var wordArea;
+    var inputArea;
+    var feedBack;
+    var scoreArea;
+    var msg;
+
+    var index=0;
+    var score=0;
+    var cnt = word.length;
+
+    function enter(){
+        //아스키 코드의 값이 엔터인 경우
+        // alert(event.keyCode);
+        
+        if(index<cnt-1){
+            if(event.keyCode==13){
+    
+                if(wordArea.innerText == msg.value){
+                    score += 10;
+                    feedBack.innerText="O";
+                }else{
+                    feedBack.innerText="X";
+                    
+                }
+                index++;
+                console.log(index);
+                printWord();
+    
+                msg.value="";
+                scoreArea.innerText=score+"점";
+            }
+        }else{
+            feedBack.innerText="끝!";
+        }
+
+
+    }
+
+    function init(){
+        wordArea=document.getElementById("word_area");
+        inputArea=document.getElementById("input_area");
+        feedBack=document.getElementById("feedback");
+        scoreArea=document.getElementById("score_area");
+        msg=document.getElementById("msg");
+    }
+
+    function printWord(){
+        wordArea.innerText=word[index];
+    }
+
+    window.addEventListener("load",function(){
+        init();
+        printWord();
+        //프로그램 가동과 동시에 커서가 텍스트 박스에 올라가있어야함
+        msg.focus();
+    });
+</script>
+
+
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <div id="word_area"></div>
+        <div id="input_area">
+            <input type="text" placeholder="단어입력" onkeyup="enter()" id="msg">
+        </div>
+        <div id="feedback"></div>
+        <div id="score_area">0점</div>
+    </div>
+</body>
+</html>

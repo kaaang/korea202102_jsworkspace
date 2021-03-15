@@ -64,22 +64,22 @@
 
         t_hour.value="00";
         t_min.value="00";
-        t_sec.value="00";
+        t_sec.value=sec;
         
     }
     function countUp(){
         sec++;
-        if(sec==60){
-            sec=0;
+        if(sec>=60){
             min++;
-            if(min>=60){
-                hour++;
-                min=0;
-            }
+            sec=0;
+            t_min.value=getZeroString(min);
+        }
+        if(min>=60){
+            hour++;
+            t_hour.value=getZeroString(hour);
+            min=0;
         }
         t_sec.value=getZeroString(sec);
-        t_min.value=getZeroString(min);
-        t_hour.value=getZeroString(hour);
     }
     //function start(){
     //    auto = setInterval("countUp()",1);

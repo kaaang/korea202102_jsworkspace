@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width:600px;
+        margin: auto;
+        border: 1px solid red;
+        
+    }
+    #wrapper input{
+        font-size: 110px;
+        width: 130px;
+        text-align: right;
+                
+    }
+    #wrapper button{
+        text-align: center;
+        border: 1px solid red;
+        text-decoration-color: red;
+             
+    }
+</style>
+<script>
+
+ var t_sec;
+ var t_min;
+ var t_hour;
+
+ var sec=0;
+
+function init(){
+    t_hour=document.getElementById("t_hour");
+    t_min=document.getElementById("t_min");
+    t_sec=document.getElementById("t_sec");
+
+    t_hour.value="0"+0;
+    t_min.value="0"+0;
+    t_sec.value="0"+0;
+
+}
+function start(){
+    sec++;
+    t_sec.value=sec;
+}
+window.addEventListener("load", function(){
+    init();
+});
+
+
+
+</script>
+</head>
+<body>
+
+    <div id="wrapper">
+        <input type="text" id="t_hour">시
+        <input type="text" id="t_min">분
+        <input type="text" id="t_sec">초
+        <p>
+            <button onclick="start()">start</button>
+            <button>pause</button>
+        </p>
+    </div>
+</body>
+</html>
