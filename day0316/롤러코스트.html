@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+    body{margin:0px}
+    .wrapper{
+        width: 1000px;
+        height: 700px;
+        background-color: blanchedalmond;
+        overflow: hidden;
+    }
+    #content{
+        width: 800px;
+        height: 100%;
+        background: url("../images/roller.png");
+        background-repeat: no-repeat;
+        background-size: 800px 700px;
+        float: left;
+    }
+    #log{
+        width: 200px;
+        height: 100%;
+        background-color: cornflowerblue;
+        float: left;
+        overflow: scroll;
+    }
+</style>
+
+
+<script>
+    var content;
+    var log;
+    var pointArray=[];
+    var img;
+    var index=0;
+    var set_int;
+    
+
+    function init(){
+        content=document.getElementById("content");
+        log=document.getElementById("log");
+        createHero();
+    }
+
+    function createHero(){
+        img=document.createElement("img");
+        img.src="../images/hero.png";
+        img.style.width=50+"px";
+        content.appendChild(img);
+        img.style.position="absolute";
+        img.style.left=100+"px";
+        img.style.top=100+"px";
+    }
+
+    function createPos(){
+        //마우스를 클릭한 위치와 동일한 위치에 점을 찍어보자
+        var span=document.createElement("span");
+        span.innerText="●";
+        span.style.color="red";
+        span.style.fontSize=1+"px";
+        span.style.position="absolute";
+        var x=event.clientX+"px";
+        var y=event.clientY+"px";
+
+        var pos = [x,y];
+        pointArray.push(pos);
+
+        span.style.left=x;
+        span.style.top=y;
+        //현재 마우스에 의해 얻어진 좌표 정보가 아직 저장되고 있지 않기 때문에 좌표정보를 저장해보자
+
+
+        content.appendChild(span);
+        printPos();
+    }
+
+    function printPos(){
+        var str="";
+        for(var i=0;i<pointArray.length;i++){
+            // for(var j=0;j<pointArray[i].length;j++){
+            // }
+            var box=pointArray[i];
+            str+="["+box[0] +","+box[1]+"]\n";
+        }
+        log.innerText = str;
+    }
+
+    function move(){
+        var x=pointArray[index][0];
+        var y=pointArray[index][1];
+        img.style.left=x;
+        img.style.top=y;
+        index++;
+    }
+
+    function auto(){
+        set_int = setInterval("move()",100);
+    }
+
+    window.addEventListener("load",function(){
+        init();
+    });
+</script>
+
+
+
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <div id="content" onmousedown="createPos()"></div>
+        <div id="log"></div>
+    </div>
+    <button onclick="move()">PLAY</button>
+    <button onclick="auto()">AUTO</button>
+</body>
+</html>

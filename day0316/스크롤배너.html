@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+
+<script>
+    var container;
+    var imgWidth=150; //상품 이미지의 너비
+    var imgHeight=150; //상품 이미지의 높이
+    var gap=5; //이미지 사이의 간격
+    var imgCount=3; //액자에 보여질 이미지 수
+    var bannerImg=[];//img태그 자체를 담을 배열 (추후 이 배열을 이용하여 이동)
+                                //new Array()를 통해 생성하는방법과 [] 선언과 동시에 값까지 할당할수있는 방법이 있다.
+    var imgArray=["../images/rai/KakaoTalk_20210316_084456840.jpg"
+    ,"../images/rai/KakaoTalk_20210316_084456840_01.jpg"
+    ,"../images/rai/KakaoTalk_20210316_084456840_02.jpg"
+    ,"../images/rai/KakaoTalk_20210316_084456840_03.jpg"
+    ,"../images/rai/KakaoTalk_20210316_084456840_04.jpg"
+    ,"../images/rai/KakaoTalk_20210316_084456840_05.jpg"
+    ,"../images/rai/KakaoTalk_20210316_084456840_06.jpg"
+    ,"../images/rai/KakaoTalk_20210316_084456840_07.jpg"];
+    var targetX=0; //임계점에 도달한 모든 이미지가 가야할 곳
+    var flag=true;
+
+    function init(){
+        createFrame();
+        createImg();
+        targetX = (bannerImg.length-1)*(imgWidth+gap);
+        setInterval("flowImg()",10);
+    }
+
+    function createFrame(){
+        container=document.createElement("div");
+        container.style.width=gap+((imgWidth+gap)*imgCount)+"px";
+        container.style.height=imgHeight+(gap*2)+"px";
+        container.style.backgroundColor="gray";
+        container.style.margin="auto";
+        container.style.position="relative";
+        container.style.overflow="hidden";
+
+        document.body.appendChild(container);
+    }
+
+    function createImg(){
+        for(var i=0;i<imgArray.length;i++){
+            var img=document.createElement("img");
+            img.src=imgArray[i];
+            img.style.width=imgWidth+"px";
+            img.style.height=imgHeight+"px";
+            img.style.position="absolute";
+            img.style.left=gap+(imgWidth+gap)*i+"px";
+            img.style.top=gap+"px";
+
+            //이미지에 마우스 이벤트 연결
+            img.addEventListener("mouseover",function(){
+                flag=false;
+            })
+            img.addEventListener("mouseout",function(){
+                flag=true;
+            })
+
+            container.appendChild(img);
+
+            //비어있는 배열에 이미지를 추가하자
+            bannerImg.push(img);
+        }
+    }
+
+    function flowImg(){
+        if(flag){
+            for(var j=0;j<bannerImg.length;j++){
+                bannerImg[j].style.left=parseInt(bannerImg[j].style.left)-1+"px";
+            
+                if(parseInt(bannerImg[j].style.left) < -(imgWidth+gap)){
+                    bannerImg[j].style.left=targetX+"px";
+                }
+            }
+        }
+    }
+
+    window.addEventListener("load",function(){
+        init();
+    });
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+  
+</body>
+</html>
