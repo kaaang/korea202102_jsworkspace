@@ -72,6 +72,8 @@
     var min=0;
     var sec=0;
 
+    var war;
+
     var set_intervalerval;
 
     function init(){
@@ -107,8 +109,8 @@
             sec -=60;
         }
         while(min>=60){
-            min++;
-            sec -=60;
+            hour++;
+            min-=60;
         }
 
         
@@ -150,7 +152,7 @@
 
     function countDown(){
         sec--;
-        console.log(sec);
+        // console.log(sec);
         if(sec==0 && min==0 && hour == 0){
             show();
             setTimeout("timeOut()",1);
@@ -169,9 +171,20 @@
             }
             show();
         }
+
+        if(sec<=10){
+            set_col();
+        }
     }
 
-
+    function set_col(){
+        var r=parseInt(Math.random()*255);
+        var g=parseInt(Math.random()*255);
+        var b=parseInt(Math.random()*255);
+        wra=document.getElementById("wrapper");
+        wra.style.backgroundColor="rgb("+r+","+g+","+b+")";
+        // console.log(r);
+    }
 
     function show(){
         t_hour.value=zero(hour);

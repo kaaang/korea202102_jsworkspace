@@ -79,11 +79,13 @@ function countDown(){
     sec=t_sec.value;
     hour=t_hour.value;
 
+    
     if(sec<=0){
         if(min<=0){
             if(hour<=0){
-                alert("시간이 종료되었습니다!")
-                return
+                stop();
+                alert("시간이 종료되었습니다!");
+                return;
             }
             hour--;
             t_hour.value=getZeroString(hour);
