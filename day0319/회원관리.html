@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원관리</title>
+
+<style>
+    .wrapper{
+        width: 1000px;
+        height: 600px;
+        background-color: cadetblue;
+        margin: auto;
+        overflow: hidden;
+    }
+    #regist-area, #detail-area{
+        width: 150px;
+        height: 100%;
+        background-color:darkseagreen;
+        float: left;
+    }
+    #regist-area input,#detail-area input {
+        width: 90%;
+        font-size: 18px;
+        border-radius: 5%;
+        background-color: darkslategray;
+        color: white;
+        margin: 5px;
+        border: 1px solid white;
+    }
+    
+    #list-wrapper{
+        width: 700px;
+        height: 100%;
+        background-color: darkgoldenrod;
+        float: left;
+    }
+</style>
+
+<script src='../js/font.js' crossorigin='anonymous'></script>
+
+
+<script>
+    var listArea;
+    var t_id, t_name, t_phone, t_money;
+    var d_id, d_name, d_phone, d_money;
+    var memberArray=[];
+    var searchArray=[];
+
+    var det=0;
+    
+    
+    //입력 양식의 데이터를 보관 후, 테이블로 출력
+    //등록하기
+    function regist(){
+        //등록전에 숫자형 데이터에 대해서는 유효성 체크를 해야한다.
+        if(isNaN(t_money.value)){
+            alert("Money는 숫자만 입력 가능합니다.");
+            t_money.value="";
+            t_money.focus();
+            return;//함수 호출부로 돌아감
+        }
+        var member=[];
+        member[0]=t_id.value;
+        member[1]=t_name.value;
+        member[2]=t_phone.value;
+        member[3]=t_money.value;
+
+        memberArray.push(member);
+        getList();
+        clear_t();
+        t_id.focus();
+    }
+    function clear_t(){
+        t_id.value="";
+        t_name.value="";
+        t_phone.value="";
+        t_money.value="";
+    }
+    function clear_d(){
+        d_id.value="";
+        d_name.value="";
+        d_phone.value="";
+        d_money.value="";
+    }
+    //데이터를 테이블로 출력하기
+    function getList(){
+        var tag="<table width=\"100%\" border=\"1px\">";
+                tag +="<tr style=\"background: gray\">";
+                tag +="<td>No</td>";
+                tag +="<td>ID</td>";
+                tag +="<td>Name</td>";
+                tag +="<td>Phone</td>";
+                tag +="<td>Money</td>";
+                tag +="</tr>";
+        
+        var total =0;
+        for(var i=memberArray.length-1;i>=0;i--){
+            tag +="<tr onclick=detail("+i+")>";
+            tag +="<td>"+(i+1)+"</td>";
+            for(var j=0;j<memberArray[i].length;j++){
+                tag +="<td>"+memberArray[i][j]+"</td>";
+            }
+            tag +="</tr>";
+            total +=parseInt(memberArray[i][3]);
+        }
+        tag+="<tr>";
+        tag+="<td colspan='5' align='right'>Total Member : "+(memberArray.length)+", Total Money : "+total+"</td>";
+        tag+="</tr>";
+        tag +="</table>";
+
+        
+        listArea.innerHTML=tag;
+    }
+
+    function detail(i){
+        det=i;
+        d_id.value=memberArray[i][0];
+        d_name.value=memberArray[i][1];
+        d_phone.value=memberArray[i][2];
+        d_money.value=memberArray[i][3];
+    }
+
+    function d_delete(){
+        memberArray.splice(det,1);
+        getList();
+        clear_d();
+    }
+    function d_insert(){
+        memberArray[det][0] = d_id.value;
+        memberArray[det][1] = d_name.value;
+        memberArray[det][2] = d_phone.value;
+        memberArray[det][3] = d_money.value;
+        getList();
+        clear_d();
+    }
+
+    function search(){
+        var box;
+        var text;
+        box=parseInt(document.getElementById("selectBox").value);
+        text=document.getElementById("textBox").value;
+        for(i=0;i<memberArray.length;i++){
+            if(text==memberArray[i][box]){
+                searchArray.push(memberArray[i]);
+            }
+        }
+        
+
+    }
+
+    function init(){
+        listArea=document.getElementById("list-area");
+        t_id=document.getElementById("t_id");
+        t_id.focus();
+        t_name=document.getElementById("t_name");
+        t_phone=document.getElementById("t_phone");
+        t_money=document.getElementById("t_money");
+
+        d_id=document.getElementById("d_id");
+        d_name=document.getElementById("d_name");
+        d_phone=document.getElementById("d_phone");
+        d_money=document.getElementById("d_money");
+
+
+        getList();
+    }
+    window.addEventListener("load",function(){
+        init();
+    });
+</script>
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <div id="regist-area">
+            <input type="text" placeholder="ID" id="t_id">
+            <input type="pass" placeholder="Name" id="t_name">
+            <input type="text" placeholder="Phone" id="t_phone">
+            <input type="text" placeholder="Money" id="t_money">
+            <button onclick="regist()">Finish</button>
+        </div>
+        
+
+        <div id="list-wrapper">
+            <div id="search-area">
+                <select id="selectBox">
+                    <option value="0">ID</option>
+                    <option value="1">NAME</option>
+                    <option value="2">PHONE</option>
+                    <option value="3">MONEY</option>
+                </select>
+                <input type="text" placeholder="Search" id="textBox">
+                <button style='font-size:15px'><i class='fas fa-search' onclick="search()"></i></button>
+            </div>
+
+
+            <div id="list-area"></div>
+        </div>
+
+
+
+        <div id="detail-area">
+            <input type="text" placeholder="ID" id="d_id">
+            <input type="pass" placeholder="Name" id="d_name">
+            <input type="text" placeholder="Phone" id="d_phone">
+            <input type="text" placeholder="Money" id="d_money">
+            <button onclick="d_insert()">Insert</button>
+            <button onclick="d_delete()">Delete</button>
+        </div>
+    </div>
+</body>
+</html>

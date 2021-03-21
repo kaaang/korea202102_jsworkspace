@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+    #wrapper{
+        width: 1000px;
+        height: 600px;
+        background-color: cadetblue;
+        margin: auto;
+        overflow: hidden;
+    }
+    #dashBoard{
+        width: 200px;
+        height: 100%;
+        background-color: darkgoldenrod;
+        float: left;
+    }
+    #content{
+        width: 800px;
+        height: 100%;
+        background-color: darkgray;
+        float: left;
+        position: relative;
+    }
+    #dashBoard input{
+        width: 95%;
+        font-size: 20px;
+        background-color: darkseagreen;
+        color: white;
+        font-weight: bold;
+    }
+    #hpBox{
+        width: 100%;
+        height: 190px;
+        /* background-color: tomato; */
+        margin-top: 50px;
+        box-sizing: border-box;
+        padding: 4px 2px 2px 2px;
+    }
+    #scoreArea{
+        font-size: 60px;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 100px;
+    }
+</style>
+
+<script src="../js/lib.js"></script>
+<script>
+    var hpBox;
+    var content;
+    var scoreArea;
+    var keyword;
+    var spanArray=[];
+    var velY=10;//단어의 속도
+    var score=0;
+    var hpArray=[];
+    var dropFlag=true;
+
+    var wordArray=[
+        ["나비","마우스","핸드폰","키보드","태풍","콘센트","자바","오라클","강아지","고양이"],
+        ["1","2","3","4","5","6","7","8","9","0"],
+        ["안녕","나는","귀염둥이","신혁이","야","만나서","반가워","잘부탁해","헤헤","후후"],
+        ["필통","안경","캔들","베개","모니터","조명","이불","담배","전자","고양이"]
+    ];
+
+    function init(){
+        hpBox=document.getElementById("hpBox");
+        content=document.getElementById("content");
+        scoreArea=document.getElementById("scoreArea");
+        keyword=document.getElementById("keyword");
+
+        keyword.addEventListener("keyup",function(){
+            // console.log(event.keyCode);
+            if(event.keyCode==13){
+                //단어 비교 부분
+                for(var i=0;i<spanArray.length;i++){
+                    if(spanArray[i].innerText == keyword.value){
+
+                        removeObject(content,spanArray[i],spanArray,i);
+
+                        score+=10;
+                        printScore();
+                    }
+                }
+                keyword.value="";
+                checkSuccess();
+            }
+        });
+    }
+
+    function checkSuccess(){
+        if(spanArray.length<=0 && hpArray.length>0){
+            dropFlag=false;
+            alert("Success!");
+        }
+    }
+
+    function removeObject(container,child,arr,index){
+        //화면에서 삭제
+        container.removeChild(child);
+        //메모리에서 삭제(배열에서 삭제)
+        arr.splice(index,1);
+    }
+
+    function createHp(){
+        for(var i=0;i<9;i++){
+            var rect=document.createElement("div");
+            rect.style.width=60+"px";
+            rect.style.height=50+"px";
+            rect.style.backgroundColor="red";
+            rect.style.border="1px solid yellow"
+            rect.style.borderRadius=20+"%";
+            rect.style.float="left";
+            
+            hpBox.appendChild(rect);
+            hpArray.push(rect);
+        }
+    }
+
+    function printScore(){
+        scoreArea.innerText = score+"점";
+    }
+
+    //단어생성하기
+    function createWord(){
+        var r=parseInt(getRandom(wordArray.length));
+        for(var i=0;i<wordArray[r].length;i++){
+            var span=document.createElement("span");
+            span.innerText=wordArray[r][i];
+            // span.style.backgroundColor="white";
+            span.style.position="absolute";
+            span.style.left=10+(80*i)+"px";
+
+            span.style.top=getRandom(-300)+"px";
+            
+            content.appendChild(span);
+            spanArray.push(span);
+        }
+    }
+    
+    //단어 점점 내려오는 함수
+    function dropDown(){
+        if(dropFlag){
+            for(var i=0;i<spanArray.length;i++){
+                spanArray[i].style.top = parseInt(spanArray[i].style.top)+velY+"px";
+                if(parseInt(spanArray[i].style.top)>=580){
+                    removeObject(content,spanArray[i],spanArray,i);
+                    if(hpArray[hpArray.length-1] != undefined){
+                        removeObject(hpBox,hpArray[hpArray.length-1],hpArray,hpArray.length-1);
+                    }
+                }
+            }
+            if(hpArray.length<=0){
+                dropFlag = false;
+                if(confirm("미션 실패 \n게임을 다시 시도하시겠어요?")){
+                    location.reload();
+                }
+            }
+        }
+    }
+    
+    window.addEventListener("load",function(){
+        init();
+        createHp();
+        printScore();
+        createWord();
+        setInterval("dropDown()",300);
+        keyword.focus();
+    });
+</script>
+
+</head>
+<body>
+    <div id="wrapper">
+        <div id="dashBoard">
+            <div id="hpBox"></div>
+            <input type="text" placeholder="단어 입력" id="keyword">
+            <div id="scoreArea"></div>
+        </div>
+        <div id="content"></div>
+    </div>
+</body>
+</html>

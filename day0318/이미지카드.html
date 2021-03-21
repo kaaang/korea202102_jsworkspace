@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+    #wrapper{
+        width: 1000px;
+        height: 340px;
+        background-color: cadetblue;
+        margin: auto;
+        overflow: hidden;
+    }
+</style>
+
+<script>
+    var wrapper;
+    var cardArray=[];
+    var a=0.1;
+    var targetY=[];
+    var imgArray=["1","2","3"];
+    var setText=["hello","world","hoit"];
+
+    function init(){
+        wrapper=document.getElementById("wrapper");
+        for(var i=0;i<3;i++){
+            targetY[i]=270;
+            cardArray[i]=createCard(i,imgArray[i],setText[i]);
+            wrapper.appendChild(cardArray[i]);
+        }
+    }
+
+    //카드 한개를 생성하는 함수
+    function createCard(index,src,inputText){
+        var wi=300;
+        var he=320;
+        var hide=270
+
+        var card=document.createElement("div");
+        card.style.width=wi+"px";
+        card.style.height=he+"px";
+        card.style.background = "url(../images/travel/"+src+".jpg)";
+        card.style.backgroundSize=wi+"px "+he+"px";
+        card.style.position="relative";
+        card.style.overflow="hidden";
+        card.style.float="left";
+        card.style.boxSizing="border-box";
+        card.style.margin=5+"px";
+        
+
+        //텍스트 박스
+        var textBox=document.createElement("div");
+        textBox.style.width=wi+"px"
+        textBox.style.height=he+"px"
+        textBox.style.backgroundColor="black";
+        textBox.style.opacity=0.8;
+        textBox.style.position="absolute";
+        textBox.style.top=hide +"px";
+        textBox.innerText=inputText;
+        textBox.style.color="white";
+        textBox.style.fontSize=18+"px";
+        textBox.style.textAlign="center";
+        textBox.style.boxSizing="border-box";
+        textBox.style.paddingTop=10+"px";
+        
+
+        //마우스 오버 이벤트 구현
+        textBox.addEventListener("mouseover",function(){
+            // this.style.top=0+"px";
+            targetY[index]=0;
+        });
+        textBox.addEventListener("mouseout",function(){
+            // this.style.top=hide+"px";
+            targetY[index]=270;
+        });
+
+
+        card.appendChild(textBox);
+        
+        return card;
+    }
+
+    //부드럽게 오르내리는 감속도 처리함수
+    function slideUpDown(){
+        //물체 위치= 기존 물체위치 + a*(목표지점-기존물체위치)
+        for(var i=0;i<cardArray.length;i++){
+            var textBox=cardArray[i].children[0];
+            // console.log(textBox);
+            textBox.style.top=parseFloat(textBox.style.top)+a*(targetY[i]-parseFloat(textBox.style.top))+"px";
+        }
+    }
+
+    window.addEventListener("load",function(){
+        init();
+        setInterval("slideUpDown()",10);
+    });
+</script>
+
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

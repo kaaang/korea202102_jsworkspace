@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이차원배열은 데이터 베이스다</title>
+
+<style>
+    body{margin: 0px;}
+    .wrapper{
+        width: 1000px;
+        height: 600px;
+        background-color: cornflowerblue;
+        overflow: hidden;
+    }
+    #content{
+        width: 800px;
+        height: 100%;
+        background-color: darkcyan;
+        float: left;
+        overflow: hidden; /*rect가 float 되었음으로..*/
+    }
+    #log{
+        width: 200px;
+        height: 100%;
+        background-color: darkkhaki;
+        float: left;
+        overflow: scroll;
+    }
+</style>
+
+<script>
+    var content;
+    var log;
+    var boxSize=5;
+    var aptBox=[];
+    var border=0;
+    var flag=false;
+    var recordArray=[];
+    var recordFlag=false;
+    var playFlag=false;
+    var index=0;
+
+    function init(){
+        content=document.getElementById("content");
+        log=document.getElementById("log");
+
+        createRect();
+        setInterval("recPlay()",100);
+
+        //content화면을 대상으로 마우스를 눌렀다면 flag를 true로
+        //마우스에서 손을 떼면 false
+        content.addEventListener("mousedown",function(){
+            // console.log("마우스 눌렀음");
+            flag=true;
+        });
+        content.addEventListener("mouseup",function(){
+            // console.log("마우스 눌렀음");
+            flag=false;
+        });
+    }
+
+    //그림판 픽셀 표현
+    function createRect(){
+        for(var j=0;j<(600/boxSize);j++){
+            var lineBox=[];
+            for(var i=0;i<(800/boxSize);i++){
+                var rect=document.createElement("div");
+                rect.style.border=border+"px solid red";
+                rect.style.width=boxSize+"px";
+                rect.style.height=boxSize+"px";
+                rect.style.boxSizing="border-box";
+                rect.style.float="left";
+
+                //각 사각형에 개발자가 원하는 정보를 심어놓으면 나중에 활용하기 좋다.
+                rect.id=[j,i];
+                // rect.innerText=rect.id;
+                
+                content.appendChild(rect);
+                //생성된 사각형을 배열에 담기
+                lineBox.push(rect);
+                
+                //생성되는 모든 사각형에 대해서 마우스 이벤트를 부여
+                rect.addEventListener("mouseover",function(){
+                    //이벤트를 일으킨 요소의 style의 배경색 변경
+                    if(flag){
+                        //this = 지금 이벤트를 일으킨 요소
+                        this.style.background="red";
+                        //층, 호수를 구해서 일차원 배열로 저장한 후, 최종적으로 recordArray에 저장
+                        // console.log(j);
+                        var pos=this.id.split(",");
+                        console.log(pos[0]+"층"+pos[1]+"호");
+                        
+                    
+
+                    if(recordFlag){
+                        recordArray.push(pos);
+                        printLog();
+                    }
+                    
+
+                    }
+                });
+            }
+            aptBox.push(lineBox);
+        }
+    }
+
+    function setFlag(){
+        border=(border==0)? 1:0;
+        for(var j=0;j<aptBox.length;j++){
+            for(var i=0;i<aptBox[j].length;i++){
+                aptBox[j][i].style.border=border+"px solid red";
+            }
+        }
+    }
+
+    function setRecordFlag(){
+        document.getElementById("rec_bt").style.background =(recordFlag)? "none":"red";
+        recordFlag = !recordFlag;
+    }
+
+    function printLog(){
+        var str="";
+
+        for(var i=0;i<recordArray.length;i++){
+            var arr=recordArray[i];
+            str+=arr[0]+"층"+arr[1]+"호\n";
+        }
+        log.innerText=str;
+    }
+    
+    function erase(){
+        for(var i=0;i<aptBox.length;i++){
+            for(var j=0;j<aptBox[i].length;j++){
+                aptBox[i][j].style.background="none";
+            }
+        }
+    }
+
+    function recPlay(){
+        // for(var i=0;i<recordArray.length;i++){
+        //     var dot=recordArray[i];
+        //     var x=dot[0];
+        //     var y=dot[1];
+
+            
+        //     aptBox[x][y].style.background="red";
+        // }
+        if(playFlag){
+            var dot=recordArray[index++];
+            var x=dot[0];
+            var y=dot[1];
+            aptBox[x][y].style.background="red";
+        }
+
+        if(index>=recordArray.length){
+            playFlag=false;
+            index=0;
+        }
+    }
+    
+    function setPlayFlag(){
+        playFlag=true;
+    }
+
+    window.addEventListener("load",function(){
+        init();
+    });
+</script>
+
+</head>
+<body>
+    <div class="wrapper">
+        <div id="content"></div>
+        <div id="log"></div>
+    </div>
+    <button id="rec_bt" onclick="setRecordFlag()">REC</button>
+    <button onclick="erase();">DEL</button>
+    <button onclick="setPlayFlag()">PLAY</button>
+    <button onclick="setFlag()">DEBUG</button>
+</body>
+</html>
