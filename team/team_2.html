@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+<style>
+    #wrapper{
+        width: 1000px;
+        height: 800px;
+        background-color: blanchedalmond;
+        margin: auto;
+        /* overflow: hidden; */
+    }
+    #content{
+        width: 800px;
+        height: 800px;
+        background-color: cadetblue;
+        background: url("../images/poo/to.jpg");
+
+        float: left;
+        position: relative;
+    }
+    #right_box{
+        width: 200px;
+        height: 800px;
+        background-color: coral;
+        float: left;
+    }
+    #cat{
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: 750px;
+        /* left: 0px; */
+    }
+    #score_box{
+        width: 200px;
+        height: 110px;
+        background-color: blueviolet;
+        position: absolute;
+        color: white;
+        font-size: 50px;
+        font-weight: bold;
+        text-align: center;
+        top: 200px;
+        
+    }
+</style>
+
+<script src="../js/lib.js"></script>
+<script>
+    var content;
+    var right_box;
+    var score_box;
+    var cat;
+    var cat_loc=0;
+
+    var img_w=50;
+    var img_h=50;
+    var speed=50;
+
+    var imgArray=[];
+
+    var cnt=0;
+    
+    var keyword;
+
+    var drop_flag=true;
+
+    var score=0;
+
+    var val;
+
+    
+    function init(){
+        content=document.getElementById("content");
+        right_box=document.getElementById("right_box");
+        cat=document.getElementById("cat");
+        cat.style.letf=cat_loc +"px";
+        score_box=document.getElementById("score_box");
+       
+        val = setInterval("dropImg()",1000);
+       
+
+        window.addEventListener("keyup",function(){
+            move(event.keyCode);
+        });
+    }
+
+    function createImg(){
+
+        var imgAr=[];
+        var img_left=0;
+        var r=0;
+        
+        for(var i=0;i<(800/img_w);i++){
+            r=parseInt(getRandom(2));
+            var img=document.createElement("img");
+            if(r==0){
+                img.src="../images/poo/poo1.png";
+                img.style.width=img_w + "px";
+                img.style.height=img_h + "px";
+                img.style.position="absolute"
+                img.style.left=img_left+"px";
+                img.style.top=0+"px";
+                img_left +=img_w;
+                imgAr.push(img);
+            }else{
+                img_left +=img_w;
+            }
+
+            content.appendChild(img);
+        }
+        imgArray.push(imgAr);
+    }
+    function dropImg(){
+        if(drop_flag){
+            for(var i=0;i<imgArray.length;i++){
+                for(var j=0;j<imgArray[i].length;j++){
+                    imgArray[i][j].style.top =parseInt(imgArray[i][j].style.top)+speed+"px";
+                }
+            }
+            cnt++
+            if(cnt%3==0){
+                createImg();
+            }
+            check();
+        }
+        
+        if(parseInt(imgArray[0][0].style.top) >= 800){
+            for(var i=0;i<imgArray[0].length;i++){
+                content.removeChild(imgArray[0][i]);
+            }
+            imgArray.splice(0,1);
+            score += 10;
+            printScore();
+        }
+        if(score==100){
+            clearInterval(val);
+            val=setInterval("dropImg()",500)
+        }
+    }
+
+    function printScore(){
+        score_box.innerText = score+"점";
+    }
+
+    function check(){
+        if(parseInt(imgArray[0][0].style.top)==750){
+            for(var i=0;i<imgArray[0].length;i++){
+                if(imgArray[0][i].src =="http://127.0.0.1:5500/images/poo/poo1.png"){
+                // if(imgArray[0][i].src =="file:///D:/korea202102_jsworkspace/images/poo/poo1.png"){
+                    // console.log(parseInt(imgArray[0][i].style.left));
+                    // console.log(parseInt(cat_loc));
+                    // alert("Game over");
+                    if(parseInt(imgArray[0][i].style.left)==cat_loc){
+                        drop_flag=false;
+                        if(confirm("미션 실패 \n게임을 다시 시도하시겠어요?")){
+                            location.reload();
+                        }
+                    }
+                    
+                }
+            }
+            
+        }
+    }
+    
+    function move(key){
+        //좌 : 37 우 : 39
+        // console.log(key);
+        if(key==37 && cat_loc>0){
+            cat.src="../images/poo/cat_left.png";
+            cat_loc -= img_w;
+            cat.style.left=cat_loc+"px";
+        }else if(key==39 && cat_loc<750){
+            cat.src="../images/poo/cat_right.png";
+            cat_loc += img_w;
+            cat.style.left=cat_loc+"px";
+        }else if(key==40){
+            cat.src="../images/poo/cat_down.png";
+        }
+        
+    }
+
+    window.addEventListener("load",function(){
+        init();
+        createImg();
+        printScore();
+        
+    });
+</script>
+
+
+</head>
+<body>
+    <div id="wrapper">
+        <div id="content">
+            <img src="../images/poo/cat_down.png" id="cat">
+        </div>
+        <div id="right_box">
+            <div id="score_box"></div>
+        </div>
+    </div>
+</body>
+</html>

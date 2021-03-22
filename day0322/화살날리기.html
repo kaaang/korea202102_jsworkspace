@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<script src="../js/lib.js"></script>
+<script>
+    var arrow =[];
+    var colorArray=["red","orange","yellow","green","blue","navy","purple"];
+    var textArray=["♭","♩","♪","♬","◆","☆","★","◐","◑","○","●","◎","⊙","◈","◇","△","▲","▽","▼","□","■","◁","◀","▷","▶","◇","◆","♤","♠","♡","♥","♧","♣"];
+
+    //1회성이 아닌, 추후 두고두고 써먹을 코드 영역을 지정한 후, 거푸집으로 선언하자
+    //전산에서는 이 코드 단위를 클래스라 한다
+    //클래스명은 첫 철자를 대문자로 작성해야함
+    class Arrow{
+        //자바 그크립트에서는 사물이 보유한 변수는 constructor()라는 함수 즉 생성자 함수내에서 작성해야한다.
+        constructor(y,c,velX,text){
+            this.span;
+            this.velX=velX;
+            this.x=0;
+            this.y=y;
+            this.color=c;
+            this.text=text;
+        }
+        //사물이 보유한 함수를 가리켜, 그 사물의 동작방식, 방법을 표현한다고 하여
+        //메서드 (method)라 한다!!!
+        init(){
+            this.span=document.createElement("span");
+            this.span.style.position="absolute";
+            this.span.style.left=0+"px";
+            this.span.style.top=this.y+"px";
+            this.span.innerText=this.text;
+            this.span.style.fontSize=20+"px";
+            this.span.style.color=this.color;
+    
+            document.body.appendChild(this.span);
+        }
+        move(){
+            this.x += this.velX;
+            this.span.style.left=this.x+"px";
+        }
+    }
+
+
+    function auto(){
+        for(var i=0;i<arrow.length;i++){
+            arrow[i].move();
+        }
+    }
+    
+    window.addEventListener("load",function(){
+        //원하는 만큼 거푸집으로 부터 화살을 생성해보자!
+        //쇳물 붓기
+        for(var i=0;i<5;i++){
+            arrow[i]=new Arrow(i*20,colorArray[getRandom(colorArray.length)],getRandom(20)+1,textArray[getRandom(textArray.length)]); //constructor()생성자 함수의 매개변수에 y값 전달
+            arrow[i].init();
+        }
+        
+        
+        setInterval("auto()",100);
+    });
+</script>
+
+
+
+
+</head>
+<body>
+    
+</body>
+</html>
