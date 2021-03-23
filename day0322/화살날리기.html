@@ -54,7 +54,7 @@
     window.addEventListener("load",function(){
         //원하는 만큼 거푸집으로 부터 화살을 생성해보자!
         //쇳물 붓기
-        for(var i=0;i<5;i++){
+        for(var i=0;i<20;i++){
             arrow[i]=new Arrow(i*20,colorArray[getRandom(colorArray.length)],getRandom(20)+1,textArray[getRandom(textArray.length)]); //constructor()생성자 함수의 매개변수에 y값 전달
             arrow[i].init();
         }
