@@ -157,11 +157,16 @@
             itemArray[i].render();
             itemArray[i].tick();
         }
-        if(count%1500 == 0){
+        if(count%1100 == 0){
             createItem();
         }
         log();
         count++;
+
+
+        if(count%1000==0){
+            createEnemy();
+        }
     }
 
     function log(){
