@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모자이크</title>
+
+<script src="../js/Rect.js"></script>
+<script>
+    var container;
+    var cellSize=100;
+    var cols=10;
+    var rows=7;
+    var i=0;
+    var j=0;
+    var count=0;
+    
+
+    function init(){
+        container=document.createElement("div");
+        container.style.width=cellSize*cols + "px";
+        container.style.height=cellSize*rows + "px";
+        container.style.margin="auto";
+        container.style.background="url(../images/rai/4.jpg)";
+        container.style.backgroundSize=cellSize*cols+"px "+cellSize*rows+"px";
+        container.style.position="relative";
+
+        document.body.appendChild(container);
+    
+    }
+
+    function createRect(){
+
+        new Rect(container,cellSize,cellSize,j*cellSize,i*cellSize,"red");
+        j++;
+        if(j%cols == 0){
+            j=0;
+            i++;
+        }
+    }
+
+    function auto(){
+        if(count < (cols*rows)){
+            createRect();
+            count++;
+        }
+    }
+    
+    window.addEventListener("load",function(){
+        init();
+        setInterval("auto()",200);
+    });
+</script>
+
+</head>
+<body>
+    
+</body>
+</html>

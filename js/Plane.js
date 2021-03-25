@@ -29,6 +29,62 @@ class Plane{
     tick(){
         this.x += this.velX;
         this.y += this.velY;
+
+
+        //주인공과 적이 충돌
+        for(var i=0;i<enemyArray.length;i++){
+            if(hitTest(this.img, enemyArray[i].img)){
+                removeObject(this.container, enemyArray[i].img, enemyArray,i);
+                //hp 제거
+                removeObject(info, hpArray[hpArray.length-1].img, hpArray,hpArray.length-1);
+
+                //주인공의 에너지가 모두 소진되었는지
+                if(hpArray.length==0){
+                    var div=document.createElement("div");
+                    div.style.fontSize="100px";
+                    div.style.textAlign="center";
+                    div.style.color="#ffffff";
+                    div.style.fontWeight="bold";
+                    div.style.height="600px";
+                    div.innerHTML="GAME OVER <br><a href=\"javascript:location.reload()\">REPLAY?</a>";
+
+                    this.container.appendChild(div);
+                }
+            }
+        }
+
+        for(var i=0; i<itemArray.length;i++){
+            if(hitTest(this.img, itemArray[i].img)){
+                for(var j=0;j<roleArray.length;j++){
+                    if(itemArray[i].src==roleArray[j].src){
+                        var loop = enemyArray.length;
+                        switch(roleArray[j].role){
+                            case 0: weaponIndex=2;break;
+                            case 1: {
+                                for(var a=0;a<loop;a++){
+                                    removeObject(this.container, enemyArray[0].img, enemyArray,0);
+                                } 
+                                break;
+
+                            }
+                            case 2: 
+                                plusHP();
+                                break;
+                            case 3: 
+                                speed =  15;
+                                break;
+                        }
+
+                    }
+                }
+                removeObject(this.container, itemArray[i].img, itemArray,i);
+            }
+        }
+
+
+
+
+
         if(this.x<=0){
             this.x=0;
         }
@@ -47,6 +103,10 @@ class Plane{
         if(this.y>=600-this.height){
             this.y=600-this.height;
         }
+
+
+ 
+
     }
 
 

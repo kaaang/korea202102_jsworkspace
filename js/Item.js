@@ -1,8 +1,15 @@
-class Enemy{
-    constructor(container,src,width,height,x,y,velX,velY){
+// 1:무기 전환
+// 2:적군 모두 소멸
+// 3:hp추가
+// 4:주인공 속도
+
+
+class Item{
+    constructor(itemRole,container,width,height,x,y,velX,velY){
+        this.itemRole=itemRole;
         this.container=container
         this.img=document.createElement("img");
-        this.src=src;
+        this.src=itemRole.src;
         this.width=width;
         this.height=height;
         this.x=x;
@@ -25,11 +32,8 @@ class Enemy{
         this.x +=this.velX;
         this.y +=this.velY;
         if(this.x<0){
-            removeObject(this.container, this.img,enemyArray, enemyArray.indexOf(this));
+            // removeObject(this.container, this.img,enemyArray, enemyArray.indexOf(this));
         }
-        // if(this.x<0){
-        //     this.x=0;
-        // }
     }
     render(){
         this.img.style.left=this.x+"px";

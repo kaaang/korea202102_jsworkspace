@@ -1,5 +1,5 @@
-class Enemy{
-    constructor(container,src,width,height,x,y,velX,velY){
+class Hp{
+    constructor(container,src,width,height,x,y){
         this.container=container
         this.img=document.createElement("img");
         this.src=src;
@@ -7,8 +7,6 @@ class Enemy{
         this.height=height;
         this.x=x;
         this.y=y;
-        this.velX=velX;
-        this.velY=velY;
 
         this.img.src=this.src;
         
@@ -20,19 +18,5 @@ class Enemy{
         this.img.style.top=this.y+"px";
 
         this.container.appendChild(this.img);
-    }
-    tick(){
-        this.x +=this.velX;
-        this.y +=this.velY;
-        if(this.x<0){
-            removeObject(this.container, this.img,enemyArray, enemyArray.indexOf(this));
-        }
-        // if(this.x<0){
-        //     this.x=0;
-        // }
-    }
-    render(){
-        this.img.style.left=this.x+"px";
-        this.img.style.top=this.y+"px";
     }
 }

@@ -11,7 +11,7 @@
     *{margin: 0px;}
 </style>
 
-
+<script src="../js/lib.js"></script>
 <script>
     var box1;
     var box2;
@@ -51,32 +51,14 @@
             box1.style.top=(event.clientY-50)+"px"
 
             log(box1,parseInt(box1.style.left),parseInt(box1.style.top));
-            collisionCheck(box1,box2);
+            if(hitTest(box1,box2)){
+                box2.style.background="red";
+            }else{
+                box2.style.background="blue";
+            }
         }
     }
 
-    //충돌 여부를 판단해주는 함수
-    function collisionCheck(me, you){
-        var result = false;
-        //왼쪽 상단 체크
-        var x1 = parseInt(me.style.left);
-        var y1 = parseInt(me.style.top);
-        var w1 = parseInt(me.style.width);
-        var h1 = parseInt(me.style.height);
-
-        var x2 = parseInt(you.style.left);
-        var y2 = parseInt(you.style.top);
-        var w2 = parseInt(you.style.width);
-        var h2 = parseInt(you.style.height);
-
-        var check1 = (x1+w1)>x2 && (y1+h1)>y2; //2사분면
-        var check2 = false;
-        var check3 = false;
-        var check4 = false;
-
-        result =check1 || check2 || check3 || check4;
-        return result;
-    }
 
     //한번 누르면 들고다니고, 또한번 누르면 내려온다.
     function take(){
