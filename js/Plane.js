@@ -55,29 +55,36 @@ class Plane{
 
         for(var i=0; i<itemArray.length;i++){
             if(hitTest(this.img, itemArray[i].img)){
-                for(var j=0;j<roleArray.length;j++){
-                    if(itemArray[i].src==roleArray[j].src){
-                        var loop = enemyArray.length;
-                        switch(roleArray[j].role){
-                            case 0: weaponIndex=2;break;
-                            case 1: {
-                                for(var a=0;a<loop;a++){
-                                    removeObject(this.container, enemyArray[0].img, enemyArray,0);
-                                } 
-                                break;
+                // for(var j=0;j<roleArray.length;j++){
+                //     if(itemArray[i].src==roleArray[j].src){
+                //         var loop = enemyArray.length;
+                //         switch(roleArray[j].role){
+                //             case 0: weaponIndex=2;break;
+                //             case 1: {
+                //                 for(var a=0;a<loop;a++){
+                //                     removeObject(this.container, enemyArray[0].img, enemyArray,0);
+                //                 } 
+                //                 break;
 
-                            }
-                            case 2: 
-                                plusHP();
-                                break;
-                            case 3: 
-                                speed =  15;
-                                break;
-                        }
+                //             }
+                //             case 2: 
+                //                 plusHP();
+                //                 break;
+                //             case 3: 
+                //                 speed =  15;
+                //                 break;
+                //         }
 
-                    }
-                }
+                //     }
+                // }
+                var itemRole=itemArray[i].itemRole;
                 removeObject(this.container, itemArray[i].img, itemArray,i);
+                switch(itemRole.role){
+                    case 0:changeWeapon();break;
+                    case 1:clearEnemy();break;
+                    case 2:increaseHp();break;
+                    case 3:speedUp();break;
+                }
             }
         }
 

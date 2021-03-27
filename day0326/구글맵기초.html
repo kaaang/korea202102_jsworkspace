@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    
+    
+    
+    <script>
+    /*
+    1.고갯마루집 [37.49936812366152, 127.03939534232786]
+    2.대우부대찌개 [37.50273195773493, 127.03517585048743]
+    3.이도곰탕 [37.503346913848276, 127.03840989759045]
+    4.지아니스나폴리 [37.50264993096309, 127.03755740401601]
+    5.불이야 [37.502514167568414, 127.03654113571872]
+    */
+    var googleMap;
+
+    var member={
+        "list" : [
+            {
+                "name" : "고개마루집",
+                "lat" : 37.49936812366152,
+                "lng" : 127.03939534232786,
+                "src" : "../images/store/1.jpg"
+            },
+            {
+                "name" : "대우부대찌개",
+                "lat" : 37.50273195773493,
+                "lng" : 127.03517585048743,
+                "src" : "../images/store/2.jpg"
+            },
+            {
+                "name" : "이도곰탕",
+                "lat" : 37.503346913848276,
+                "lng" : 127.03840989759045,
+                "src" : "../images/store/3.jpg"
+            },
+            {
+                "name" : "지아니스나폴리",
+                "lat" : 37.50264993096309,
+                "lng" : 127.03755740401601,
+                "src" : "../images/store/4.jpg"
+            },
+            {
+                "name" : "불이야",
+                "lat" : 37.502514167568414,
+                "lng" : 127.03654113571872,
+                "src" : "../images/store/5.jpg"
+            }
+        ]
+    }
+
+    // 위의 div가 로드되면 실행할려고
+    function myMap() {
+        var mapProp= {
+            center:new google.maps.LatLng(37.5000064839238, 127.03552597929556),
+            zoom:19,
+        };
+        var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+        //마커를 생성
+        var marker = new google.maps.Marker({
+            position: mapProp.center,
+            //마커의 움직임을 표현할 json
+            animation:google.maps.Animation.BOUNCE,
+            icon:{
+                url : "../images/etc/pica.png",
+                scaledSize : new google.maps.Size(50,50)
+            }
+        });
+        //생성된 마커를 적용할 맵을 지정
+        marker.setMap(map);
+
+        
+        
+        google.maps.event.addListener(marker,'click',function() {
+            //메시지 윈도우 띄우기
+            var infowindow = new google.maps.InfoWindow({
+                content:"학원 위치"
+            });
+            //메시지 윈도우가 적용될 맵과 마커
+            infowindow.open(map,marker);
+        });
+
+
+        // for(var i=0;i<member.list.length;i++){
+        //     var marker = new google.maps.Marker({
+        //     position: new google.maps.LatLng(member.list[i].lat,member.list[i].lng ),
+        //     icon:{
+        //         url : member.list[i].src,
+        //         scaledSize : new google.maps.Size(50,50)
+        //     }
+        //     });
+        //     marker.setMap(map);
+
+        //     var infowindow = new google.maps.InfoWindow({
+        //         content:member.list[i].name
+        //     });
+        //     infowindow.open(map,marker);
+
+            // google.maps.event.addListener(marker,'click',function() {
+            // //메시지 윈도우 띄우기
+            // //메시지 윈도우가 적용될 맵과 마커
+            // });
+        //}
+
+
+    }
+
+
+    window.addEventListener("load",function(){
+        googleMap=document.getElementById("googleMap");
+    })
+</script>
+
+
+
+</head>
+<body>
+
+<h1>My First Google Map</h1>
+
+<div id="googleMap" style="width:100%;height:600px;"></div>
+
+
+
+<!-- 구글 맵을 불러오는데는, 시간이 필요하다. 이때 구글맵이 브라우저에 다 로드가 되면
+callback에서 명시한 myMap이라는 함수를 호출한다. -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_GbMbCtZvu6LXkTVLObquhkv4j8zRPzc&callback=myMap"></script>
+
+
+</body>
+</html>

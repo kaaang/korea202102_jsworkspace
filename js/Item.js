@@ -32,7 +32,7 @@ class Item{
         this.x +=this.velX;
         this.y +=this.velY;
         if(this.x<0){
-            // removeObject(this.container, this.img,enemyArray, enemyArray.indexOf(this));
+            removeObject(this.container, this.img,itemArray, itemArray.indexOf(this));
         }
     }
     render(){
