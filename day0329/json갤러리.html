@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+#wrapper{
+    width: 1000px;
+    height: 800px;
+    background-color: burlywood;
+    margin: auto;
+}
+#movie_title{
+    width: 100%;
+    height: 100px;
+    background-color: cadetblue;
+}
+#content_wrapper{
+    width: 100%;
+    height: 550px;
+    background-color: coral;
+    overflow: hidden;
+}
+#pic{
+    width: 500px;
+    height: 550px;
+    background-color: cornflowerblue;
+    float: left;
+}
+#detail{
+    width: 500px;
+    height: 550px;
+    background-color: darkgoldenrod;
+    float: left;
+    font-size: 32px;
+    color: white;
+}
+#navi{
+    width: 100%;
+    height: 50px;
+    background-color: darkgrey;
+}
+#thumb{
+    width: 100%;
+    height: 100px;
+    background-color: darkolivegreen;
+    position: relative;
+    /* overflow: hidden; */
+}
+</style>
+
+<script src="../js/marvel.js"></script>
+<script>
+    var box;
+    function init(){
+        createBox();
+        createThumb();
+        getDetail(movies.marvel[0]);
+    };
+    
+    function createBox(){
+        box = document.getElementById("box");
+        box.style.position="absolute";
+        box.style.left=0+"px";
+        box.style.top=0+"px";
+        box.style.width=(100*20)+"px";
+        box.style.height=100+"px";
+        box.style.backgroundColor="blue";
+    };
+
+    function createThumb(){
+        for(var i=0;i<movies.marvel.length;i++){
+            var movie=movies.marvel[i];
+            var img=document.createElement("img");
+            img.src=movie.url;
+            img.style.width=90+"px";
+            img.style.height=90+"px";
+            img.style.position="absolute";
+            img.style.left=5+(100*i)+"px";
+            img.style.top=5+"px";
+    
+            box.appendChild(img);
+        }
+    };
+
+    function getDetail(obj){
+        var pic = document.getElementById("pic");
+        pic.style.backgroundImage="url("+obj.url+")"
+        pic.style.backgroundSize=500+"px "+550+"px";
+        
+        var msg="";
+        msg +="제목 : "+obj.title+"<br>";
+        msg +="부제 : "+obj.phase+"<br>";
+        msg +="개봉년도 : "+obj.release_year+"<br>";
+        msg +="상영시간 : "+obj.running_time+"<br>";
+        msg +="제작예산 : "+obj.budget+"<br>";
+        msg +="영화수익 : "+obj.gross+"<br>";
+        document.getElementById("detail").innerHTML=msg;
+    }
+
+    window.addEventListener("load",function(){
+        init();
+    });
+</script>
+
+
+
+</head>
+<body>
+    <div id="wrapper">
+        <div id="movie_title"></div>
+        <div id="content_wrapper">
+            <div id="pic"></div>
+            <div id="detail"></div>
+        </div>
+        <div id="navi"></div>
+        <div id="thumb">
+            <div id="box"></div>
+        </div>
+    </div>
+</body>
+</html>

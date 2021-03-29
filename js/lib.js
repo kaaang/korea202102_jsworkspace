@@ -55,6 +55,41 @@ function hitTest(me, target) {
     return (result1 || result2) && (result3 || result4);
 }
 
+/*------------------------------------------------------------
+충돌 여부를 위아래좌우 판단
+좌 : 1
+위 : 2
+우 : 3
+아래 : 4
+--------------------------------------------------------------*/
+function hitTestAll(me, target) {
+    //두물체간 충돌 여부 판단 
+    me_x= parseInt(me.style.left);
+    me_y= parseInt(me.style.top);
+    me_width=parseInt(me.style.width);
+    me_height=parseInt(me.style.height);
+
+    target_x= parseInt(target.style.left);
+    target_y= parseInt(target.style.top);
+    target_width=parseInt(target.style.width);
+    target_height=parseInt(target.style.height);
+
+    var result;
+
+    if(((me_x+me_width)<=(target_x+target_width)) && (me_y >= target_y) && ((me_y+me_height)<=(target_y+target_height)) ){
+        result = 1;
+    }else if((me_x>=target_x) && ((me_x+me_width)<=(target_x+target_width)) && (me_y+me_height)<(target_y+target_height)       ){
+        result = 2;
+    }else if(((me_x)>(target_x)) && (me_y >= target_y) && ((me_y+me_height)<=(target_y+target_height)) ){
+        result = 3;
+    }else if((me_x>=target_x) && ((me_x+me_width)<=(target_x+target_width))  && me_y >target_y){
+        result = 4;
+    }
+    
+    
+    return result;
+}
+
 
 
 
