@@ -103,3 +103,16 @@ function rgbRandom(){
     var b = parseInt(Math.random()*256);
     return rgb(r+","+g+","+b);
 }
+
+
+
+
+
+/*------------------------------------------------------------
+자리수 처리 함수
+한자리수의 경우 앞에 0 붙이기
+--------------------------------------------------------------*/
+function getZeroString(n){
+    var result = (n>=10)? n:"0"+n ;
+    return result;
+}

@@ -17,6 +17,8 @@
     width: 100%;
     height: 100px;
     background-color: cadetblue;
+    font-size: 65px;
+    text-align: center;
 }
 #content_wrapper{
     width: 100%;
@@ -48,16 +50,22 @@
     height: 100px;
     background-color: darkolivegreen;
     position: relative;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 </style>
 
+<script src="../js/Pointer.js"></script>
 <script src="../js/marvel.js"></script>
 <script>
     var box;
+    var pointer;
+    var targetX=0;
+
+
     function init(){
         createBox();
         createThumb();
+        createPointer();
         getDetail(movies.marvel[0]);
     };
     
@@ -74,6 +82,7 @@
     function createThumb(){
         for(var i=0;i<movies.marvel.length;i++){
             var movie=movies.marvel[i];
+
             var img=document.createElement("img");
             img.src=movie.url;
             img.style.width=90+"px";
@@ -81,8 +90,18 @@
             img.style.position="absolute";
             img.style.left=5+(100*i)+"px";
             img.style.top=5+"px";
+            img.id=i;
     
             box.appendChild(img);
+
+            //각 썸네일 이미지에 이벤트 연결
+            img.addEventListener("click",function(){
+                //유저가 지금 선택한 이미지와 관련된 영화 json
+                // alert(this.id);
+                // pointer.targetX=this.id*100;
+                pointer.targetX=(this.id*100)%1000;
+                getDetail(movies.marvel[this.id]);
+            });
         }
     };
 
@@ -99,10 +118,34 @@
         msg +="제작예산 : "+obj.budget+"<br>";
         msg +="영화수익 : "+obj.gross+"<br>";
         document.getElementById("detail").innerHTML=msg;
+
+        //영화제목처리
+        document.getElementById("movie_title").innerText=obj.title;
+    }
+
+    function createPointer(){
+        // constructor(container, width, height,x,y,a,targetX){
+        pointer = new Pointer(document.getElementById("thumb"),100,100,0,0,0.1,0 );
+    }
+
+    function moveBox(){
+        //썸네일을 담고있는 컨테이너를 이용하여, 페이지 전환 에니메이션 구현
+        box.style.left = parseFloat(box.style.left)+0.1*(targetX-parseFloat(box.style.left))+"px";
+    }
+
+    function aniLoop(){
+        pointer.tick();
+        pointer.render();
+        moveBox();
+    }
+
+    function setPage(page){
+        targetX=page;
     }
 
     window.addEventListener("load",function(){
         init();
+        setInterval("aniLoop()",10);
     });
 </script>
 
@@ -116,7 +159,10 @@
             <div id="pic"></div>
             <div id="detail"></div>
         </div>
-        <div id="navi"></div>
+        <div id="navi" style="position: relative;">
+            <button style="position: absolute;left:0px;" onclick="setPage(0)">Prev</button>
+            <button style="position: absolute;right:0px;" onclick="setPage(-1000)">Next</button>
+        </div>
         <div id="thumb">
             <div id="box"></div>
         </div>

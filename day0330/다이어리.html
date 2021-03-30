@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+    #navi{
+        width: 100%;
+        height: 100px;
+        text-align: center;
+        position: relative;
+    }
+    #navi span{
+        font-size: 27px;
+    }
+    #bt_prev, #bt_next{
+        width: 50px;
+        height: 35px;
+        background: aquamarine;
+        color: azure;
+        border: 0px;
+    }
+    #bt_next{
+        position: absolute;
+        right: 0px;
+    }
+    #bt_prev{
+        position: absolute;
+        left: 0px;
+    }
+    #day_area{
+        height: 100px;
+    }
+    #date_area{
+        height: 600px;
+    }
+</style>
+
+
+<script src="../js/lib.js"></script>
+<script src="../js/DateBox.js"></script>
+<script>
+    var cellSize=100;
+    var wrapper;
+    var dayArray=["Sun","Mon","Tue","Wed","Thur","Fri","Sat"];
+    var dateBox=[];
+    var d;
+
+    function init(){
+        wrapper = document.getElementById("wrapper");
+        createWrapper();
+        createDays();
+        createDate();
+        d= new Date();
+        getCurrentDate();
+        printDate();
+    }
+
+    function printDate(){
+        var yy=d.getFullYear();
+        var mm=d.getMonth();
+        var d_start = getFirstDayOfMonth(yy, mm);
+        var d_last = getLastDate(yy, mm+1);
+        console.log("d_start",d_start);
+        console.log("d_last",d_last);
+        console.log("dateBox",dateBox[d_start]);
+
+        for(var i=0;i<d_last;i++){
+            dateBox[d_start+i].div.innerText=i+1;
+        }
+    }
+
+    //현재날짜 구하기
+    function getCurrentDate(){
+        
+        var yy=d.getFullYear();
+        var mm=d.getMonth();
+
+        setTitle(yy+"년"+getZeroString(mm+1)+"월");
+    }
+
+    //각 월의 시작 요일을 알아야, 날짜의 시작 위치를 결정짓는다
+    function getFirstDayOfMonth(year, month){
+        //각월의 1일로 날짜를 조작한 후 요일을 물어보자
+        var d = new Date(year, month, 1);
+
+        return d.getDay();//요일 반환
+    }
+    //각 월이 몇일까지 있는지
+    //주의 : 함수 호출시 7월말이 궁금할 경우, 매개변수로는 8월을 넘겨야함
+    function getLastDate(year, month){
+        var d = new Date(year, month, 0);
+
+        return d.getDate();//요일 반환
+    }
+
+
+    function createDays(){
+        for(var i=0;i<dayArray.length;i++){
+            var box = new DateBox(document.getElementById("day_area"),cellSize,cellSize,dayArray[i],"yellow");
+        }
+    }
+
+    function createDate(){
+        for(var i=0;i<dayArray.length*6;i++){
+            dateBox[i] = new DateBox(document.getElementById("date_area"),cellSize,cellSize,"","aquamarine");
+        }
+    }
+
+    function setTitle(text){
+        document.getElementById("cal_title").innerText=text;
+    }
+
+    function createWrapper(){
+        wrapper.style.width = cellSize*7+"px";
+        wrapper.style.height=100+100+cellSize*6+"px";
+        wrapper.style.background="#cccccc"
+        wrapper.style.margin="auto";
+        wrapper.style.overflow="hidden"
+    }
+
+    function set_clear(){
+        for(var i=0;i<dateBox.length;i++){
+            dateBox[i].div.innerText="";
+        }
+    }
+
+    function bt_prev(){
+        set_clear();
+        var mon = d.getMonth();
+        mon--;
+        d.setMonth(mon);
+
+        printDate();
+        getCurrentDate();
+
+    }
+    function bt_next(){
+        set_clear();
+        var mon = d.getMonth();
+        mon++;
+        d.setMonth(mon);
+
+        printDate();
+        getCurrentDate();
+    }
+
+    window.addEventListener("load",function(){
+        init();
+    });
+</script>
+
+
+</head>
+<body>
+    <div id="wrapper">
+        <div id="navi">
+            <button id="bt_prev" onclick="bt_prev()">◀</button>
+            <span id="cal_title"></span>
+            <button id="bt_next" onclick="bt_next();">▶</button>
+        </div>
+        <div id="day_area"></div>
+        <div id="date_area"></div>
+    </div>
+</body>
+</html>

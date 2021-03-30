@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<script src="../js/Block.js"></script>
+<script src="../js/lib.js"></script>
+<script src="../js/BounceBall.js"></script>
+<style>
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+</style>
+<script>
+    var wrapper;
+    var w_width = 600;
+    var w_height = 800;
+
+    var bar;
+    var b_width = 100;
+    var b_height = 5;
+    var b_top = w_height-b_height-15;
+    var b_left = (w_width/2)-(b_width/2);
+
+    var rightPressed = false;
+    var leftPressed = false;
+    
+    var ball;
+
+    var block;
+    var blockArray = [];
+
+    var flag = true;
+
+    function init(){
+        wrapper = document.getElementById("wrapper");
+        wrapper.style.width=w_width+"px";
+        wrapper.style.height=w_height+"px";
+        wrapper.style.margin="auto";
+        wrapper.style.border=5+"px solid black";
+        wrapper.style.position="relative";
+
+        bar=document.getElementById("bar");
+        bar.style.width = b_width +"px";
+        bar.style.height = b_height + "px"
+        bar.style.position = "absolute";
+        bar.style.border=5+"px solid black";
+        bar.style.background = "black";
+        bar.style.top= b_top +"px";
+        bar.style.left= b_left + "px";
+
+        createBlock();
+        createBall();
+
+        document.addEventListener("keydown",function(){
+            pressDown();
+        });
+        document.addEventListener("keyup",function(){
+            pressUp();
+        });
+        
+
+    }
+
+    function pressDown(){
+        if(event.keyCode == 37){
+            leftPressed = true;
+            // bar.style.left = parseInt(bar.style.left)-10 + "px";
+        }
+        if(event.keyCode == 39){
+            rightPressed = true;
+            // bar.style.left = parseInt(bar.style.left)+10 + "px";
+        }
+
+    }
+    function pressUp(){
+        if(event.keyCode == 37){
+            leftPressed = false;
+            // bar.style.left = parseInt(bar.style.left)-10 + "px";
+        }else if(event.keyCode == 39){
+            rightPressed = false;
+            // bar.style.left = parseInt(bar.style.left)+10 + "px";
+        }
+
+    }
+
+    function moveBar(){
+        if(leftPressed && parseInt(bar.style.left)>0){
+            bar.style.left = parseInt(bar.style.left)-10 + "px";
+        }else if(rightPressed && parseInt(bar.style.left) < (w_width-b_width-10)){
+            bar.style.left = parseInt(bar.style.left)+10 + "px";
+        }
+    }
+    
+
+
+    function createBall(){
+        ball = new BounceBall(wrapper,w_width,w_height,"../images/bounceball/ball.png",5,-5);
+    }
+
+    function createBlock(){
+        var block_l=50;
+        var block_t=50;
+
+        for(var i=0;i<3;i++){
+            for(var j=0;j<5;j++){
+                block = new Block(wrapper,"../images/bounceball/block.png",w_width,w_height,block_l,block_t);
+                blockArray.push(block);
+                block_l = block_l + 100;
+            }
+            block_l=50;
+            block_t=block_t +100;
+        }
+
+
+    }
+
+    
+
+
+
+
+
+    function gameLoop(){
+        if(flag){
+            moveBar();
+            ball.tick();
+            ball.render();
+        }
+        
+    }
+
+    window.addEventListener("load",function(){
+        init();
+        setInterval("gameLoop()",20);
+    });
+</script>
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    <div id="wrapper">
+        <div id="bar"></div>
+
+    </div>    
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>진아님살려주세요</title>
+<style>
+#wrapper{
+    width: 1000px;
+    height: 700px;
+    margin: auto;
+    background: #cccccc;
+    position: relative;
+}
+#content{
+    
+}
+#div1{
+    width: 200px;
+    height: 200px;
+    background: red;
+    float: left;
+}
+#div2{
+    width: 200px;
+    height: 200px;
+    background: blue;
+    float: left;
+}
+#div3{
+    width: 200px;
+    height: 200px;
+    background: yellow;
+    float: left;
+}
+#div4{
+    width: 200px;
+    height: 200px;
+    background: green;
+    float: left;
+}
+</style>
+<script src="../js/lib.js"></script>
+<script>
+var img;
+var x=0;
+var y=0;
+var ball_width=40;
+var ball_height=40;
+var velX=1;
+var velY=1;
+var limitX=1000;
+var limitY=700;
+var content;
+
+function init(){
+    content=document.getElementById("content");
+    content.style.width = 400+"px";
+    content.style.height = 400+"px";
+    content.style.position = "absolute";
+    content.style.left = 300+"px";
+    content.style.top = 150+"px";
+    
+    createball();
+    move();
+}
+function createball(){
+    img = document.createElement("img");
+    img.src="../images/bounceball/ball.png";
+    img.style.width=ball_width+"px";
+    img.style.height=ball_height+"px";
+    img.style.position="absolute";
+    img.style.left=50+"px";
+    img.style.top=50+"px";
+    wrapper.appendChild(img);
+}
+function move(){
+    
+    var ball_left = parseInt(img.style.left);
+    var ball_right = parseInt(img.style.left)+parseInt(img.style.width);
+    var ball_top = parseInt(img.style.top);
+    var ball_bottom = parseInt(img.style.top)+parseInt(img.style.height);
+
+    var content_left = parseInt(content.style.left);
+    var content_right = parseInt(content.style.left)+parseInt(content.style.width);
+    var content_top = parseInt(content.style.top);
+    var content_bottom = parseInt(content.style.top)+parseInt(content.style.height);
+    
+    if(ball_right>=content_left && ball_top>=content_top && ball_bottom<=content_bottom && ball_right < content_right){
+        velX = -1;
+    }
+
+
+    x = x + velX;
+    y = y + velY;
+       
+    if(y>=limitY-40 || y<=0){ 
+        velY=-1*velY;
+    }
+    if(x>=limitX-40 || x<=0){
+        velX=-1*velX;
+    }
+    img.style.left=x+"px";
+    img.style.top=y+"px";
+
+
+
+}
+
+window.addEventListener("load", function(){
+    init();
+    setInterval("move()", 5);
+});
+</script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="content">
+            <div id="div1"></div>
+            <div id="div2"></div>
+            <div id="div3"></div>
+            <div id="div4"></div>
+        </div>
+    </div>
+</body>
+</html>
