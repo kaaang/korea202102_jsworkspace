@@ -51,22 +51,23 @@
 
     function init(){
         wrapper = document.getElementById("wrapper");
+        d= new Date();
         createWrapper();
         createDays();
         createDate();
-        d= new Date();
         getCurrentDate();
         printDate();
     }
 
     function printDate(){
+        console.log("test");
         var yy=d.getFullYear();
         var mm=d.getMonth();
         var d_start = getFirstDayOfMonth(yy, mm);
         var d_last = getLastDate(yy, mm+1);
-        console.log("d_start",d_start);
-        console.log("d_last",d_last);
-        console.log("dateBox",dateBox[d_start]);
+        // console.log("d_start",d_start);
+        // console.log("d_last",d_last);
+        // console.log("dateBox",dateBox[d_start]);
 
         for(var i=0;i<d_last;i++){
             dateBox[d_start+i].div.innerText=i+1;
@@ -146,6 +147,7 @@
 
         printDate();
         getCurrentDate();
+        // console.log("test");
     }
 
     window.addEventListener("load",function(){

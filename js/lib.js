@@ -76,14 +76,24 @@ function hitTestAll(me, target) {
 
     var result;
 
-    if(((me_x+me_width)<=(target_x+target_width)) && (me_y >= target_y) && ((me_y+me_height)<=(target_y+target_height)) ){
-        result = 1;
-    }else if((me_x>=target_x) && ((me_x+me_width)<=(target_x+target_width)) && (me_y+me_height)<(target_y+target_height)       ){
-        result = 2;
-    }else if(((me_x)>(target_x)) && (me_y >= target_y) && ((me_y+me_height)<=(target_y+target_height)) ){
-        result = 3;
-    }else if((me_x>=target_x) && ((me_x+me_width)<=(target_x+target_width))  && me_y >target_y){
-        result = 4;
+    // if(((me_x+me_width)<=(target_x+target_width)) && (me_y >= target_y) && ((me_y+me_height)<=(target_y+target_height)) ){
+    //     result = 1;
+    // }else if((me_x>=target_x) && ((me_x+me_width)<=(target_x+target_width)) && (me_y+me_height)<(target_y+target_height)       ){
+    //     result = 2;
+    // }else if(((me_x)>(target_x)) && (me_y >= target_y) && ((me_y+me_height)<=(target_y+target_height)) ){
+    //     result = 3;
+    // }else if((me_x>=target_x) && ((me_x+me_width)<=(target_x+target_width))  && me_y >target_y){
+    //     result = 4;
+    // }
+
+    if( (me_x+me_width) >= target_x && (me_x+me_width) < (target_x+target_width) && me_y>=target_y  && (me_y+me_height) <= (target_y+target_height)     ){
+        result=1;
+    }else if(  (me_y+me_height)>=target_y && (me_y+me_height) <(target_y+target_height) && me_x >= target_x && (me_x+me_width)<=(target_x+target_width)       ){
+        result=2;
+    }else if(   me_x <= (target_x+target_width)  && me_x > target_x     && me_y>=target_y  && (me_y+me_height) <= (target_y+target_height)    ){
+        result=3;
+    }else if(    me_y<=  (target_y+target_height) && me_y >target_y  && me_x >= target_x && (me_x+me_width)<=(target_x+target_width)        ){
+        result=4;
     }
     
     

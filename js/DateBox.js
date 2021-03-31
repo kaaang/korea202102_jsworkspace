@@ -13,6 +13,8 @@ class DateBox{
         this.bg=bg;
         this.div.innerText=text;
         
+        this.title;//제목보관용
+        this.content;//내용보관용
         
         this.init();
     }
@@ -26,5 +28,22 @@ class DateBox{
         this.div.style.float="left";
 
         this.container.appendChild(this.div);
+        var bg=this.bg
+        var me=this;//이 클래스로부터 장차 미래에 메모리에 올라갈 인스턴스 자신
+
+        //이벤트 구현
+        this.div.addEventListener("mouseover",function(){
+            this.style.background="gray";
+        });
+        this.div.addEventListener("mouseout",function(){
+            this.style.background=bg;
+        });
+        this.div.addEventListener("click",function(){
+            //현재 날짜 박스가 어레이의 몇번째 요소인지 역추적
+
+            var index = boxArray.indexOf(me)
+
+            openDialog(index);
+        });
     }
 }

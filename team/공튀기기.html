@@ -14,6 +14,9 @@
         margin: 0px;
         padding: 0px;
     }
+    #wrapper{
+        overflow: hidden;
+    }
 </style>
 <script>
     var wrapper;
@@ -61,6 +64,11 @@
         });
         document.addEventListener("keyup",function(){
             pressUp();
+        });
+
+        wrapper.addEventListener("mousemove",function(){
+            bar.style.left=event.clientX-wrapper.offsetLeft+"px";
+            bar.style.top=event.clientY+"px";
         });
         
 
